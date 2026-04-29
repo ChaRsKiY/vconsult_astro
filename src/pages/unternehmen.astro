@@ -1,0 +1,122 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+---
+
+<BaseLayout title="Über das Unternehmen - vconsult" description="Ein international tätiges Beratungsnetzwerk für Ihre Logistik.">
+  <Navbar currentPath={Astro.url.pathname} />
+  <main>
+    <PageHeader
+      title="Über das Unternehmen"
+      description="Ein international tätiges Beratungsnetzwerk für Ihre Logistik."
+      breadcrumbs={[{ label: 'Unternehmen' }]}
+    />
+
+    <!-- Company Overview -->
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+          <!-- Left: Text -->
+          <div data-animate>
+            <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-4">vconsult GmbH</p>
+            <h2 class="text-4xl font-normal tracking-tight text-slate-900 mb-8">
+              International tätiges Beratungsnetzwerk
+            </h2>
+            <div class="space-y-5 text-slate-600 leading-relaxed">
+              <p>vconsult ist ein international tätiges Beratungsnetzwerk, das Kunden beim Aufbau und der Optimierung ihrer Unternehmenslogistik und Supply Chain in enger Verbindung mit bestehenden und neuen SAP-Systemen unterstützt. Wir sind auf Logistikberatung in strategisch-betriebswirtschaftlicher und informationstechnischer Hinsicht (vor allem SAP) spezialisiert.</p>
+              <p>Zusammen mit unseren Kunden arbeiten wir Konzepte aus und setzen diese bis hin zur SAP-Software um. Professionelles Projekt- und Changemanagement runden unser ganzheitliches Beratungsportfolio ab.</p>
+              <p>Das von uns entwickelte Modell <em class="not-italic font-medium text-slate-800">„merging business &amp; it" (mBaIT)</em> wird in Projekten generell angewendet und bietet unseren Kunden eine integrierte ganzheitliche Betrachtung der Logistikprojekte — und dadurch enorme Einsparungspotentiale.</p>
+            </div>
+          </div>
+
+          <!-- Right: Info cards -->
+          <div data-animate data-animate-delay="1" class="flex flex-col gap-5">
+            <div class="rounded-3xl border border-border-light bg-neutral-soft p-8">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm text-primary mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <h3 class="text-xl font-normal text-slate-900 mb-3">Ein Netzwerk von Experten</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">Unser Leistungsportfolio und ein Netzwerk von erfahrenen Beratern und Partnern erlaubt es, Projekte als Ganzes professionell und zuverlässig durchzuführen — im Sinne von individualisierten „Best Practice".</p>
+            </div>
+
+            <div class="rounded-3xl border border-border-light bg-neutral-soft p-8">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm text-primary mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <h3 class="text-xl font-normal text-slate-900 mb-3">Unser SAP-Consulting Team</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">Mit einem Team aus ausgewiesenen SAP-Experten bündeln wir spezifisches Fachwissen unter der Marke <span class="font-semibold text-slate-800">vconsult</span> und stellen dies unseren Kunden weltweit zur Verfügung.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Berater Philosophie -->
+    <section class="py-24 bg-neutral-soft border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <div data-animate class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-normal tracking-tight text-slate-900 mb-4">Unsere SAP-Berater Philosophie</h2>
+          <p class="text-lg text-slate-600">Welche Eigenschaften muss ein SAP-Berater haben, um erfolgreich beim und mit dem Kunden agieren zu können?</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div data-animate class="rounded-3xl border border-border-light bg-white p-10 flex flex-col gap-6">
+            <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/8 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>
+            </div>
+            <div>
+              <h3 class="text-2xl font-normal text-slate-900 mb-3">Fachabteilungen verstehen</h3>
+              <p class="text-slate-600 leading-relaxed mb-5">Ein SAP-Berater muss mit Fachabteilungen sprechen können — er muss inhaltliche Kompetenz und Prozess-Know-how vorweisen können. Er muss kommunikativ sein, Anforderungen verstehen und sofort bewerten können.</p>
+              <ul class="space-y-2.5">
+                <li class="flex items-center gap-2.5 text-sm text-slate-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                  Schnelle Bewertung von Anforderungen
+                </li>
+                <li class="flex items-center gap-2.5 text-sm text-slate-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                  Sofortiges und professionelles Feedback
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div data-animate data-animate-delay="1" class="rounded-3xl border border-border-light bg-white p-10 flex flex-col gap-6">
+            <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/8 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div>
+              <h3 class="text-2xl font-normal text-slate-900 mb-3">Technische Exzellenz aus einer Hand</h3>
+              <p class="text-slate-600 leading-relaxed mb-5">Es ist wichtig, dass ein SAP-Berater nicht nur das Konfigurieren (Customizing) der SAP-Software beherrscht, sondern auch Erweiterungen selbständig und aus einer Hand umsetzen kann.</p>
+              <div class="rounded-xl bg-primary/8 px-5 py-4">
+                <p class="text-sm text-primary font-medium leading-relaxed">Für vconsult ist somit wichtig, dass jeder SAP-Berater diese Skills beherrscht — nur dann ist eine effiziente Arbeitsweise garantiert.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-white border-t border-border-light">
+      <div data-animate class="max-w-3xl mx-auto px-6 text-center">
+        <div class="inline-block w-10 h-0.5 bg-primary mb-8"></div>
+        <p class="text-2xl font-normal text-slate-900 leading-relaxed mb-10">
+          25 zufriedene Kunden vertrauen auf unsere Expertise — lernen Sie unsere Kunden und Partner kennen.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/kunden" class="inline-flex items-center gap-2 rounded-xl px-7 py-3.5 bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-colors">
+            Kunden kennenlernen
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="/kontakt" class="inline-flex items-center gap-2 rounded-xl px-7 py-3.5 border border-primary text-primary font-bold text-sm hover:bg-primary/5 transition-colors">
+            Kontakt aufnehmen
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

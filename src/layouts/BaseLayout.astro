@@ -1,0 +1,43 @@
+---
+import '../styles/globals.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Beratung in Industriequalität, SAP Excellence Partner.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="de" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+  <body class="antialiased bg-background-light text-slate-900">
+    <slot />
+  </body>
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: '-80px' }
+    );
+    document.querySelectorAll('[data-animate]').forEach((el) =>
+      observer.observe(el)
+    );
+  </script>
+</html>

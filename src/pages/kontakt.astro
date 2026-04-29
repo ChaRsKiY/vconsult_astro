@@ -1,0 +1,94 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import Input from '@/components/ui/Input.astro';
+import Textarea from '@/components/ui/Textarea.astro';
+---
+
+<BaseLayout title="Kontakt - vconsult" description="Haben Sie Fragen, benötigen Sie Unterstützung? Bitte kontaktieren Sie uns unverbindlich.">
+  <Navbar currentPath={Astro.url.pathname} />
+  <main>
+    <PageHeader
+      title="Kontaktieren Sie uns"
+      description="Haben Sie Fragen, benötigen Sie Unterstützung? Bitte kontaktieren Sie uns unverbindlich."
+      breadcrumbs={[{ label: 'Kontakt' }]}
+    />
+
+    <section class="py-24 bg-white relative">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+        <!-- Contact Details -->
+        <div class="space-y-12">
+          <div>
+            <h2 class="text-3xl font-normal text-slate-900 mb-4">Setzen Sie sich mit uns in Verbindung.</h2>
+            <p class="text-slate-600">Wir sind von Montag bis Freitag immer online für Sie verfügbar.</p>
+          </div>
+
+          <div class="space-y-8">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <h4 class="text-lg font-normal text-slate-900">vconsult GmbH Adresse</h4>
+                <p class="mt-2 text-slate-600">AirportCity Space, Towerstraße 3<br />1300 Wien-Flughafen, Österreich</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.97 3.4 2 2 0 0 1 3.96 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-lg font-normal text-slate-900">Telefon</h4>
+                <p class="mt-2 text-slate-600">+43 664 533 21 64</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </div>
+              <div>
+                <h4 class="text-lg font-normal text-slate-900">Email</h4>
+                <a href="mailto:office@vconsult.at" class="mt-2 text-primary hover:underline font-medium inline-block">office@vconsult.at</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="glass-card-light p-8 md:p-12 rounded-3xl shadow-xl shadow-slate-200">
+          <h3 class="text-2xl font-normal text-slate-900 mb-8">Schreiben Sie eine Nachricht</h3>
+          <form class="space-y-6" action="mailto:office@vconsult.at" method="post">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Input label="Vorname" id="firstname" placeholder="Max" />
+              <Input label="Nachname" id="lastname" placeholder="Mustermann" />
+            </div>
+            <Input label="E-Mail Adresse" id="email" type="email" placeholder="max@unternehmen.com" />
+            <Textarea label="Ihre Nachricht" id="message" placeholder="Wie können wir Ihnen helfen?" />
+            <button type="submit" class="rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 bg-primary text-white shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] px-8 py-4 text-base w-full">
+              Nachricht senden
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Google Maps -->
+    <section class="h-[500px] w-full bg-slate-200 relative overflow-hidden">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2664.0850772091763!2d16.556272315648835!3d48.11822897922258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d079aa803ec27%3A0x6d9f0ab0c2e33f67!2sAirportCity%20Space!5e0!3m2!1sen!2sat!4v1700000000000!5m2!1sen!2sat"
+        class="absolute inset-0 w-full h-full border-0 grayscale-[50%]"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="vconsult Google Maps"
+      ></iframe>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

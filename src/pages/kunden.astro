@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+
+const customers = [
+  { name: 'cadaxo GmbH', industry: 'SAP Consulting & Technology' },
+  { name: 'concircle Österreich GmbH', industry: 'Management & IT Consulting' },
+  { name: 'curo.at', industry: 'Business Process Management' },
+  { name: 'dcg architecture & development', industry: 'SAP Systems Architecture' },
+  { name: 'e-learning-consulting', industry: 'Digital Learning Solutions' },
+];
+---
+
+<BaseLayout title="Unsere Kunden & Partner - vconsult" description="Wir bündeln spezifisches Fachwissen und stellen dies unseren Kunden weltweit zur Verfügung.">
+  <Navbar currentPath={Astro.url.pathname} />
+  <main>
+    <PageHeader
+      title="Unsere Kunden & Partner"
+      description="Wir bündeln spezifisches Fachwissen und stellen dies unseren Kunden weltweit zur Verfügung."
+      breadcrumbs={[{ label: 'Kunden' }]}
+    />
+
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {customers.map((customer, i) => (
+            <div
+              data-animate
+              data-animate-delay={i > 0 ? String(Math.min(i, 6)) : undefined}
+              class="p-8 rounded-3xl border border-border-light bg-neutral-soft hover:shadow-xl transition-all duration-300 group"
+            >
+              <div class="h-16 flex items-center mb-6">
+                <div class="text-2xl font-normal text-slate-300 group-hover:text-primary transition-colors">
+                  {customer.name}
+                </div>
+              </div>
+              <h3 class="text-xl font-normal text-slate-900 mb-2">{customer.name}</h3>
+              <p class="text-slate-500 text-sm font-medium uppercase tracking-wider">{customer.industry}</p>
+            </div>
+          ))}
+          <div
+            data-animate
+            data-animate-delay={String(Math.min(customers.length, 6))}
+            class="p-8 rounded-3xl border-2 border-dashed border-border-light flex flex-col items-center justify-center text-center opacity-60"
+          >
+            <div class="text-4xl font-normal text-slate-200 mb-4">+20 weitere</div>
+            <p class="text-slate-500 font-medium">Zufriedene Kunden weltweit</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

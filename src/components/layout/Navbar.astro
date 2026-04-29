@@ -1,0 +1,160 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const navLinks = [
+  { href: "/philosophie", label: "Philosophie" },
+  { href: "/leistungen", label: "Leistungen" },
+  { href: "/news", label: "Aktuelles" },
+  { href: "/unternehmen", label: "Über uns" },
+];
+---
+
+<header
+  id="main-nav"
+  class="fixed top-0 z-50 w-full border-b border-border-light bg-white/90 backdrop-blur-md"
+>
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <!-- Logo & Desktop Nav -->
+    <div class="flex items-center gap-10">
+      <a href="/" class="flex items-center gap-1.5 group relative z-[60]">
+        <img src="/vconsult_group.png" alt="Logo" width="120" height="120" />
+      </a>
+      <nav class="hidden items-center gap-8 lg:flex">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class={`text-sm font-semibold transition-colors ${
+                currentPath.startsWith(link.href)
+                  ? "text-primary border-b-2 border-primary pb-1"
+                  : "text-slate-600 hover:text-primary"
+              }`}
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    <!-- Desktop CTA & Mobile Toggle -->
+    <div class="flex items-center gap-4 relative z-[60]">
+      <div class="hidden lg:block">
+        <a
+          href="/kontakt"
+          class="rounded-xl font-bold transition-all shadow-lg inline-flex items-center justify-center gap-2 bg-primary text-white shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] px-5 py-2.5 text-sm"
+        >
+          Kontakt aufnehmen
+        </a>
+      </div>
+
+      <button
+        id="nav-toggle"
+        class="lg:hidden p-2 -mr-2 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+        aria-label="Menü umschalten"
+      >
+        <svg
+          id="icon-menu"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="6" x2="20" y2="6"></line>
+          <line x1="4" y1="18" x2="20" y2="18"></line>
+        </svg>
+        <svg
+          id="icon-close"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6 hidden"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="nav-menu"
+    class="hidden lg:hidden w-full overflow-hidden bg-white/95 backdrop-blur-xl border-b border-border-light absolute top-full left-0 shadow-xl"
+  >
+    <div
+      class="flex flex-col px-6 py-8 max-h-[calc(100vh-80px)] overflow-y-auto"
+    >
+      <nav class="flex flex-col gap-6">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class={`text-2xl font-normal tracking-tight transition-colors ${
+                currentPath.startsWith(link.href)
+                  ? "text-primary"
+                  : "text-slate-900 hover:text-primary"
+              }`}
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="mt-12 pt-8 border-t border-border-light">
+        <a href="/kontakt" class="block w-full">
+          <button
+            class="rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 bg-primary text-white shadow-primary/20 hover:bg-primary/90 px-8 py-4 text-base w-full"
+          >
+            Kontakt aufnehmen
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("nav-menu");
+  const iconMenu = document.getElementById("icon-menu");
+  const iconClose = document.getElementById("icon-close");
+
+  function openMenu() {
+    menu?.classList.remove("hidden");
+    iconMenu?.classList.add("hidden");
+    iconClose?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    menu?.classList.add("hidden");
+    iconMenu?.classList.remove("hidden");
+    iconClose?.classList.add("hidden");
+    document.body.style.overflow = "";
+  }
+
+  toggle?.addEventListener("click", () => {
+    menu?.classList.contains("hidden") ? openMenu() : closeMenu();
+  });
+
+  document.addEventListener("mousedown", (e) => {
+    const nav = document.getElementById("main-nav");
+    if (nav && !nav.contains(e.target as Node)) {
+      closeMenu();
+    }
+  });
+</script>

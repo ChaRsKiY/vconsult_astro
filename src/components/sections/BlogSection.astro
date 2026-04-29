@@ -1,0 +1,58 @@
+---
+import { allArticles } from '@/data/news';
+
+const recentBlogs = [...allArticles]
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 4);
+---
+
+<section class="py-32 bg-white" id="blog">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-normal text-slate-900 mb-4 tracking-tight">Aktuelle Beiträge</h2>
+      <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+      {recentBlogs.map((blog, i) => (
+        <article
+          data-animate
+          data-animate-delay={i > 0 ? String(Math.min(i, 6)) : undefined}
+          class="group cursor-pointer"
+        >
+          <div class="relative aspect-[16/10] overflow-hidden rounded-2xl mb-6 bg-neutral-soft">
+            <img
+              alt={blog.title}
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              src={blog.image}
+            />
+            <div class="absolute top-4 left-4">
+              <span class="rounded-full bg-secondary/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                {blog.category}
+              </span>
+            </div>
+          </div>
+          <a href={`/news/${blog.slug}`}>
+            <h3 class="text-xl font-normal text-slate-900 mb-3 leading-tight group-hover:text-primary transition-colors">
+              {blog.title}
+            </h3>
+          </a>
+          <p class="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">{blog.shortDescription}</p>
+          <a
+            href={`/news/${blog.slug}`}
+            class="inline-flex items-center gap-2 text-sm font-bold text-primary"
+          >
+            Mehr lesen
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <div class="flex justify-center">
+      <a href="/news" class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm">
+        Alle Beiträge ansehen
+      </a>
+    </div>
+  </div>
+</section>

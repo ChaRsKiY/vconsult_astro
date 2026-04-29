@@ -1,0 +1,111 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+
+const competencies = [
+  'SCM (Supply Chain Management)',
+  'ECR (Efficient Consumer Response)',
+  'CPFR (Collaborative Planning, Forecasting & Replenishment)',
+  'SRM (Supplier Relationship Management)',
+  'CRM (Customer Relationship Management)',
+];
+
+const downloads = [
+  'Service Beschreibung generell',
+  'Sorglospaket Außenhandel (Intrastat)',
+  'Sorglospaket Clean System',
+];
+---
+
+<BaseLayout title="Unsere Leistungen - vconsult" description="Outsourcing und holistische SAP Logistik-Optimierung">
+  <Navbar currentPath={Astro.url.pathname} />
+  <main>
+    <PageHeader
+      title="Unsere Leistungen"
+      description="Outsourcing und holistische SAP Logistik-Optimierung"
+      breadcrumbs={[{ label: 'Leistungen' }]}
+    />
+
+    <!-- Service Cards -->
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+          <!-- Card 1: Outsourcing -->
+          <div data-animate class="rounded-3xl border border-border-light bg-neutral-soft p-10 flex flex-col gap-8">
+            <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-normal text-slate-900 mb-4">IT &amp; Fachbereich Outsourcing</h2>
+              <p class="text-slate-600 leading-relaxed">
+                Wir bieten IT-Outsourcing für die inhaltliche Betreuung von SAP Logistiksystemen und Prozessen an — damit Sie keine interne IT-Mannschaft aufbauen müssen und Kosten sparen.
+              </p>
+            </div>
+
+            <!-- vcsupport block -->
+            <div class="bg-white rounded-2xl border border-border-light p-6 flex-grow">
+              <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-3">vcsupport GmbH</p>
+              <h3 class="text-lg font-normal text-slate-900 mb-4">Sorglospakete für Ihre Prozesse</h3>
+              <ul class="space-y-3">
+                {downloads.map(item => (
+                  <li class="flex items-center gap-3 group cursor-pointer">
+                    <div class="flex-shrink-0 h-8 w-8 rounded-lg bg-primary/8 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 17v-6"/><path d="m9 14 3 3 3-3"/></svg>
+                    </div>
+                    <span class="text-sm text-slate-700 group-hover:text-primary transition-colors">{item} <span class="text-slate-400">(PDF)</span></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 2: SAP Logistik -->
+          <div data-animate data-animate-delay="1" class="rounded-3xl border border-border-light bg-neutral-soft p-10 flex flex-col gap-8">
+            <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/><path d="M22 3h-6v12h6V3Z"/><path d="M16 8h6"/><path d="M16 12h6"/><path d="M6 14H4"/><path d="M6 18H4"/><path d="M10 14H8"/><path d="M10 18H8"/></svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-normal text-slate-900 mb-4">SAP Logistik &amp; Optimierung</h2>
+              <p class="text-slate-600 leading-relaxed">
+                Wir unterstützen und beraten Sie beim Aufbau und der Optimierung Ihrer Logistik- und Supply Chain-Bereiche in enger Abstimmung mit Ihrem SAP-System.
+              </p>
+            </div>
+
+            <!-- Competency areas -->
+            <div class="flex-grow">
+              <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-4">Schwerpunkte</p>
+              <ul class="space-y-2.5">
+                {competencies.map(item => (
+                  <li class="flex items-start gap-3 text-sm text-slate-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- mBaIT Quote -->
+    <section class="py-20 bg-neutral-soft border-t border-border-light">
+      <div data-animate class="max-w-3xl mx-auto px-6 text-center">
+        <div class="inline-block w-10 h-0.5 bg-primary mb-8"></div>
+        <p class="text-2xl font-normal text-slate-900 leading-relaxed">
+          Unser Verfahrensmodell <em class="not-italic text-transparent bg-clip-text bridge-gradient">„merging business &amp; it"</em> liegt dem gesamten Leistungsportfolio zugrunde — wir betrachten es als Ganzes und steigern damit den Projekterfolg bei reduzierten Kosten.
+        </p>
+        <div class="mt-10">
+          <a href="/philosophie" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all">
+            Unsere Philosophie
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

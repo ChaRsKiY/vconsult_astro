@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+---
+
+<BaseLayout title="Unsere Philosophie - vconsult" description="Erzielen die intensiven IT-Investitionen den gewünschten Erfolg?">
+  <Navbar currentPath={Astro.url.pathname} />
+  <main>
+    <PageHeader
+      title="Unsere Philosophie"
+      description="Erzielen die intensiven IT-Investitionen den gewünschten Erfolg?"
+      breadcrumbs={[{ label: 'Philosophie' }]}
+    />
+
+    <!-- Introduction -->
+    <section class="py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-6 text-slate-600 leading-relaxed space-y-8 text-lg">
+        <div data-animate>
+          <p>
+            Diese Frage stellen sich viele Manager und Mitarbeiter. Häufig wird der Nutzen von IT-Lösungen im Verhältnis zum investierten Kapital als unzureichend eingeschätzt. Die Ursache liegt dabei meist in der mangelnden Verzahnung von Geschäfts- und IT-Strategie. Diese Diskrepanz beginnt oft bereits in der Planungsphase und setzt sich in der Umsetzung fort. Das Ergebnis sind hohe Investitionen (oft höher als geplant) bei gleichzeitig zu geringem Mehrwert.
+          </p>
+        </div>
+        <div data-animate data-animate-delay="1" class="p-8 md:p-12 rounded-3xl bg-neutral-soft border-l-4 border-primary">
+          <h2 class="text-3xl font-normal tracking-tight text-slate-900 mb-6 uppercase">merging business &amp; it</h2>
+          <p class="text-lg">
+            Unser Consulting-Leitsatz der Verschmelzung von <strong>„Business"</strong> und <strong>„IT"</strong> („Merging Business and IT") wirkt diesem Problem entgegen und garantiert einen hohen ROI Ihrer IT-Investitionen.
+          </p>
+        </div>
+        <div data-animate data-animate-delay="2">
+          <p>
+            Wir helfen unseren Kunden den Nutzen (ROI) Ihrer IT-Lösungen zu optimieren, indem wir Unternehmensberatung und IT-Beratung miteinander verschmelzen. Zudem wenden wir ein integratives Change- und Projektmanagement an. Unsere Spezialisten analysieren gemeinsam mit Ihnen Ihre Logistikprozesse, erstellen ein Konzept (Blueprint) und setzen es erfolgreich bis hin zur Software um. Die Nachhaltigkeit und der Erfolg der gemeinsam erarbeiteten Lösungen sind somit garantiert.
+          </p>
+          <p class="font-medium text-slate-900 text-xl border-t border-border-light pt-8 mt-12 text-center">
+            Wir unterstützen Sie dabei, Ihr Business zu optimieren unter maximaler Nutzung der SAP Technologie. <br />Setzen Sie sich mit uns in Verbindung.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Workflow -->
+    <section class="py-32 bg-neutral-soft text-slate-900 border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div data-animate class="flex flex-col items-center text-center">
+            <div class="w-20 h-20 rounded-full bg-white shadow-sm border border-border-light flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+            </div>
+            <h3 class="text-xl font-normal mb-4">Analyse (Business)</h3>
+            <p class="text-slate-600">Unsere Spezialisten analysieren gemeinsam mit Ihnen Ihre Logistikprozesse detailliert.</p>
+          </div>
+          <div data-animate data-animate-delay="1" class="flex flex-col items-center text-center">
+            <div class="w-24 h-24 rounded-full bridge-gradient flex items-center justify-center mb-6 shadow-xl shadow-primary/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a2 2 0 0 0-2 2v2c0 1.1.9 2 2 2h4"/><path d="M20 9a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4"/><path d="M12 4v16"/><path d="M8 4h8"/><path d="M8 20h8"/></svg>
+            </div>
+            <h3 class="text-xl font-normal mb-4">Blueprint (Merging)</h3>
+            <p class="text-slate-600">Wir erstellen ein integratives Konzept und verschmelzen die Unternehmens- und IT-Beratung.</p>
+          </div>
+          <div data-animate data-animate-delay="2" class="flex flex-col items-center text-center">
+            <div class="w-20 h-20 rounded-full bg-white shadow-sm border border-border-light flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3 class="text-xl font-normal mb-4">Umsetzung (IT)</h3>
+            <p class="text-slate-600">Erfolgreiche Umsetzung in der SAP Software unter Einsatz von Change- und Projektmanagement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

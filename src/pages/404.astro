@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 - Seite nicht gefunden | vconsult">
+  <main class="min-h-screen flex items-center justify-center bg-white px-6">
+    <div data-animate class="max-w-xl w-full text-center">
+      <div class="flex justify-center mb-8">
+        <div class="h-24 w-24 rounded-3xl bg-primary/5 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><circle cx="10" cy="13" r="2"/><path d="m20 17-1.09-1.09a2 2 0 0 0-2.82 0L10 22"/></svg>
+        </div>
+      </div>
+
+      <h1 class="text-8xl font-black text-slate-900 mb-4 tracking-tighter">404</h1>
+      <h2 class="text-3xl font-normal text-slate-900 mb-6">Seite nicht gefunden</h2>
+      <p class="text-lg text-slate-600 mb-12 max-w-md mx-auto leading-relaxed">
+        Die von Ihnen gesuchte Brücke zwischen Business und IT scheint an dieser Stelle nicht zu existieren.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/" class="rounded-xl font-bold transition-all shadow-lg inline-flex items-center justify-center gap-2 bg-primary text-white shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] px-8 py-4 text-base w-full sm:w-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          Zur Startseite
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

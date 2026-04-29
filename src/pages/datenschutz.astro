@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+---
+
+<BaseLayout title="Datenschutzerklärung - vconsult" description="Informationen zum Umgang mit Ihren Daten.">
+  <Navbar currentPath={Astro.url.pathname} />
+  <main>
+    <PageHeader
+      title="Datenschutzerklärung"
+      description="Informationen zum Umgang mit Ihren Daten."
+      breadcrumbs={[{ label: 'Datenschutz' }]}
+    />
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-6 space-y-12 text-slate-600 leading-relaxed text-sm md:text-base">
+
+        <section>
+          <h2 class="text-2xl font-normal text-slate-900 mb-6">1. Datenschutz auf einen Blick</h2>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">Allgemeine Hinweise</h3>
+          <p class="mb-4">Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen.</p>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">Datenerfassung auf unserer Website</h3>
+          <h4 class="font-normal text-slate-800 mb-2 mt-6">Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h4>
+          <p class="mb-4">Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.</p>
+          <h4 class="font-normal text-slate-800 mb-2 mt-6">Wie erfassen wir Ihre Daten?</h4>
+          <p class="mb-4">Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst.</p>
+          <h4 class="font-normal text-slate-800 mb-2 mt-6">Welche Rechte haben Sie bezüglich Ihrer Daten?</h4>
+          <p class="mb-4">Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-normal text-slate-900 mb-6 border-t border-border-light pt-12">2. Allgemeine Hinweise und Pflichtinformationen</h2>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">Datenschutz</h3>
+          <p class="mb-4">Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">Hinweis zur verantwortlichen Stelle</h3>
+          <div class="bg-neutral-soft p-6 rounded-xl border border-border-light mb-6">
+            <p class="font-semibold text-slate-900">Verant Alexander</p>
+            <p>Wienerbergstraße 11</p>
+            <p>1100 Wien</p>
+            <p class="mt-4">Telefon: +43 664 533 21 64</p>
+            <p>E-Mail: office@vconsult.at</p>
+          </div>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">SSL- bzw. TLS-Verschlüsselung</h3>
+          <p class="mb-4">Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL-bzw. TLS-Verschlüsselung.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-normal text-slate-900 mb-6 border-t border-border-light pt-12">3. Datenerfassung auf unserer Website</h2>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">Cookies</h3>
+          <p class="mb-4">Die Internetseiten verwenden teilweise so genannte Cookies. Cookies richten auf Ihrem Rechner keinen Schaden an und enthalten keine Viren.</p>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">Kontaktformular</h3>
+          <p class="mb-4">Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage bei uns gespeichert.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-normal text-slate-900 mb-6 border-t border-border-light pt-12">4. Analyse Tools und Werbung</h2>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">Google Analytics</h3>
+          <p class="mb-4">Diese Website nutzt Funktionen des Webanalysedienstes Google Analytics. Anbieter ist die Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.</p>
+          <h3 class="text-xl font-normal text-slate-900 mb-4 mt-8">Google Maps</h3>
+          <p class="mb-4">Diese Seite nutzt über eine API den Kartendienst Google Maps. Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP Adresse zu speichern. Mehr Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">https://policies.google.com/privacy</a>.</p>
+        </section>
+
+        <div class="text-center pt-16 mt-8 border-t border-border-light">
+          <p class="text-lg font-medium text-slate-900 mb-2">Wir unterstützen Sie dabei, Ihr Business zu optimieren unter maximaler Nutzung der SAP Technologie</p>
+          <a href="/kontakt" class="text-primary font-bold hover:underline">Setzen Sie sich mit uns in Verbindung.</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
