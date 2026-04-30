@@ -1,4 +1,7 @@
 ---
+import type { Lang } from '@/i18n/utils';
+import { useTranslations, localePath } from '@/i18n/utils';
+
 interface Breadcrumb {
   label: string;
   href?: string;
@@ -8,19 +11,20 @@ interface Props {
   title: string;
   description?: string;
   breadcrumbs: Breadcrumb[];
+  lang?: Lang;
 }
 
-const { title, description, breadcrumbs } = Astro.props;
+const { title, description, breadcrumbs, lang = 'de' } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section class="relative overflow-hidden bg-white pt-32 pb-20 border-b border-border-light">
-  <!-- Background decorations -->
   <div class="absolute top-0 right-0 -mr-20 -mt-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl z-0"></div>
   <div class="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-secondary/10 blur-3xl z-0"></div>
 
   <div class="mx-auto max-w-7xl px-6 relative z-10">
     <nav class="flex items-center gap-2 text-sm text-slate-500 font-medium mb-8">
-      <a href="/" class="hover:text-primary transition-colors">Start</a>
+      <a href={localePath('/', lang)} class="hover:text-primary transition-colors">{t.pageHeader.home}</a>
       {breadcrumbs.map((crumb) => (
         <>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>

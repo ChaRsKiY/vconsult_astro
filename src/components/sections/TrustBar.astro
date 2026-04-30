@@ -1,17 +1,35 @@
 ---
+import type { Lang } from '@/i18n/utils';
+import { useTranslations } from '@/i18n/utils';
+import type { SectionContent } from '@/lib/content';
+
+interface Props {
+  lang?: Lang;
+  cms?: SectionContent;
+}
+
+const { lang = 'de', cms } = Astro.props;
+const t = useTranslations(lang);
+
+const label = cms?.label ?? t.trustBar.label;
+const logos = [
+  cms?.logo1 ?? 'Austrian',
+  cms?.logo2 ?? 'ÖBB',
+  cms?.logo3 ?? 'EVN',
+  cms?.logo4 ?? 'Red Bull',
+  cms?.logo5 ?? 'Voestalpine',
+];
 ---
 
 <section class="border-y border-border-light bg-neutral-soft py-12">
   <div class="mx-auto max-w-7xl px-6">
     <p class="text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-8">
-      Vertraut von globalen Unternehmen
+      {label}
     </p>
     <div class="flex flex-wrap items-center justify-around gap-12 opacity-50 grayscale transition-all hover:opacity-100">
-      <div class="text-xl font-bold text-slate-400">Austrian</div>
-      <div class="text-xl font-bold text-slate-400">ÖBB</div>
-      <div class="text-xl font-bold text-slate-400">EVN</div>
-      <div class="text-xl font-bold text-slate-400">Red Bull</div>
-      <div class="text-xl font-bold text-slate-400">Voestalpine</div>
+      {logos.map((logo) => (
+        <div class="text-xl font-bold text-slate-400">{logo}</div>
+      ))}
     </div>
   </div>
 </section>

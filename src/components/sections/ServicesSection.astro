@@ -1,17 +1,46 @@
 ---
+import type { Lang } from '@/i18n/utils';
+import { useTranslations, localePath } from '@/i18n/utils';
+import type { SectionContent } from '@/lib/content';
+
+interface Props {
+  lang?: Lang;
+  cms?: SectionContent;
+}
+
+const { lang = 'de', cms } = Astro.props;
+const t = useTranslations(lang);
+
+const title = cms?.title ?? t.services.title;
+const subtitle = cms?.subtitle ?? t.services.subtitle;
+const allLink = cms?.allLink ?? t.services.allLink;
+const card1Title = cms?.card1Title ?? t.services.card1Title;
+const card1Desc = cms?.card1Desc ?? t.services.card1Desc;
+const card1Feature1 = cms?.card1Feature1 ?? t.services.card1Feature1;
+const card1Feature2 = cms?.card1Feature2 ?? t.services.card1Feature2;
+const card1Cta = cms?.card1Cta ?? t.services.card1Cta;
+const card2Title = cms?.card2Title ?? t.services.card2Title;
+const card2Desc = cms?.card2Desc ?? t.services.card2Desc;
+const card2Feature1 = cms?.card2Feature1 ?? t.services.card2Feature1;
+const card2Feature2 = cms?.card2Feature2 ?? t.services.card2Feature2;
+const card2Cta = cms?.card2Cta ?? t.services.card2Cta;
+const card2Badge = cms?.card2Badge ?? t.services.card2Badge;
+const card3Title = cms?.card3Title ?? t.services.card3Title;
+const card3Desc = cms?.card3Desc ?? t.services.card3Desc;
+const card3Feature1 = cms?.card3Feature1 ?? t.services.card3Feature1;
+const card3Feature2 = cms?.card3Feature2 ?? t.services.card3Feature2;
+const card3Cta = cms?.card3Cta ?? t.services.card3Cta;
 ---
 
 <section class="bg-neutral-soft py-32" id="services">
   <div class="max-w-7xl mx-auto px-6">
     <div class="flex flex-col items-start md:flex-row md:items-end justify-between mb-16 gap-6">
       <div class="max-w-xl">
-        <h2 class="text-4xl font-normal text-slate-900 mb-4 tracking-tight">Präzisionsleistungen</h2>
-        <p class="text-slate-600 font-normal">
-          Maßgeschneiderte Lösungen für moderne Industrieunternehmen – fundiertes SAP-Know-how kombiniert mit innovativen Technologien.
-        </p>
+        <h2 class="text-4xl font-normal text-slate-900 mb-4 tracking-tight">{title}</h2>
+        <p class="text-slate-600 font-normal">{subtitle}</p>
       </div>
-      <a class="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all group" href="/leistungen">
-        Alle Kompetenzen anzeigen
+      <a class="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all group" href={localePath('/leistungen', lang)}>
+        {allLink}
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </a>
     </div>
@@ -22,49 +51,45 @@
         <div class="w-16 h-16 rounded-2xl bg-slate-900/5 flex items-center justify-center mb-8 group-hover:bg-slate-900/10 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
-        <h3 class="text-2xl font-normal tracking-tight text-slate-900 mb-4">Logistik Optimierung</h3>
-        <p class="text-slate-600 mb-8 leading-relaxed flex-grow">
-          Maximale Effizienz in Ihren Supply Chain Prozessen durch tiefe branchenspezifische SAP Integration.
-        </p>
+        <h3 class="text-2xl font-normal tracking-tight text-slate-900 mb-4">{card1Title}</h3>
+        <p class="text-slate-600 mb-8 leading-relaxed flex-grow">{card1Desc}</p>
         <ul class="space-y-3 mb-8">
           <li class="flex items-center text-sm font-semibold text-slate-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-            EWM Implementierung
+            {card1Feature1}
           </li>
           <li class="flex items-center text-sm font-semibold text-slate-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-            TM Optimierung
+            {card1Feature2}
           </li>
         </ul>
-        <a href="/leistungen" class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm w-full">
-          Mehr erfahren
+        <a href={localePath('/leistungen', lang)} class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm w-full">
+          {card1Cta}
         </a>
       </div>
 
       <!-- Card 2 (Featured) -->
       <div data-animate data-animate-delay="1" class="glass-card-light p-10 rounded-3xl bg-primary/5 border-primary/20 hover:shadow-xl transition-all duration-500 group flex flex-col relative">
         <div class="absolute top-0 right-0 p-4 flex">
-          <span class="bg-primary text-white text-[10px] font-bold uppercase tracking-widest py-1 px-3 rounded-full">Fokus</span>
+          <span class="bg-primary text-white text-[10px] font-bold uppercase tracking-widest py-1 px-3 rounded-full">{card2Badge}</span>
         </div>
         <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:bg-primary/20 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
         </div>
-        <h3 class="text-2xl font-normal tracking-tight text-slate-900 mb-4">S/4HANA Migration</h3>
-        <p class="text-slate-600 mb-8 leading-relaxed flex-grow">
-          Sicherer Übergang in die nächste Generation. Ganzheitliche Architektur-Blueprints und präzise Ausführung.
-        </p>
+        <h3 class="text-2xl font-normal tracking-tight text-slate-900 mb-4">{card2Title}</h3>
+        <p class="text-slate-600 mb-8 leading-relaxed flex-grow">{card2Desc}</p>
         <ul class="space-y-3 mb-8">
           <li class="flex items-center text-sm font-semibold text-slate-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-            Custom Code Anpassung
+            {card2Feature1}
           </li>
           <li class="flex items-center text-sm font-semibold text-slate-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-            Data Migration Cockpit
+            {card2Feature2}
           </li>
         </ul>
-        <a href="/leistungen" class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 bridge-gradient text-white shadow-primary/20 shadow-lg px-8 py-3 text-sm w-full">
-          Aktive Lösung
+        <a href={localePath('/leistungen', lang)} class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 bridge-gradient text-white shadow-primary/20 shadow-lg px-8 py-3 text-sm w-full">
+          {card2Cta}
         </a>
       </div>
 
@@ -73,22 +98,20 @@
         <div class="w-16 h-16 rounded-2xl bg-slate-900/5 flex items-center justify-center mb-8 group-hover:bg-slate-900/10 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
         </div>
-        <h3 class="text-2xl font-normal tracking-tight text-slate-900 mb-4">Enterprise AI</h3>
-        <p class="text-slate-600 mb-8 leading-relaxed flex-grow">
-          Intelligente Automatisierung Ihrer SAP-Landschaft. Von Predictive Analytics bis zu autonomen Prozessen.
-        </p>
+        <h3 class="text-2xl font-normal tracking-tight text-slate-900 mb-4">{card3Title}</h3>
+        <p class="text-slate-600 mb-8 leading-relaxed flex-grow">{card3Desc}</p>
         <ul class="space-y-3 mb-8">
           <li class="flex items-center text-sm font-semibold text-slate-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-            Process Mining
+            {card3Feature1}
           </li>
           <li class="flex items-center text-sm font-semibold text-slate-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-            Vorausschauende Wartung
+            {card3Feature2}
           </li>
         </ul>
-        <a href="/philosophie" class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm w-full">
-          KI entdecken
+        <a href={localePath('/philosophie', lang)} class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm w-full">
+          {card3Cta}
         </a>
       </div>
     </div>

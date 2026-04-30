@@ -3,7 +3,7 @@ import { marked } from 'marked';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
-import { useTranslations } from '@/i18n/utils';
+import { useTranslations, localePath } from '@/i18n/utils';
 import { fetchArticles, fetchContent } from '@/lib/content';
 import type { ArticleItem } from '@/lib/content';
 
@@ -20,11 +20,11 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const lang = 'de' as const;
+const lang = 'en' as const;
 const t = useTranslations(lang);
 const cms = await fetchContent(lang);
 
-const formattedDate = new Date(article.date).toLocaleDateString('de-DE', {
+const formattedDate = new Date(article.date).toLocaleDateString('en-GB', {
   day: '2-digit',
   month: 'long',
   year: 'numeric',
@@ -39,7 +39,7 @@ const contentHtml = article.content ? await marked.parse(article.content) : '';
     <!-- Header -->
     <div class="bg-neutral-soft pt-32 pb-16 border-b border-border-light">
       <div class="max-w-4xl mx-auto px-6">
-        <a href="/news" class="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-primary transition-colors mb-8">
+        <a href={localePath('/news', lang)} class="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-primary transition-colors mb-8">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
           {t.blog.backToAll}
         </a>

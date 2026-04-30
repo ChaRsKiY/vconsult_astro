@@ -7,7 +7,7 @@ import { useTranslations, localePath } from '@/i18n/utils';
 import { fetchContent } from '@/lib/content';
 import type { SectionContent } from '@/lib/content';
 
-const lang = 'de' as const;
+const lang = 'en' as const;
 const t = useTranslations(lang);
 const cms = await fetchContent(lang);
 const c: SectionContent = cms.unternehmen ?? {};

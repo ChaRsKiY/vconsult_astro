@@ -12,7 +12,7 @@ import BlogSection from '@/components/sections/BlogSection.astro';
 import { useTranslations } from '@/i18n/utils';
 import { fetchContent, fetchArticles } from '@/lib/content';
 
-const lang = 'de' as const;
+const lang = 'en' as const;
 const t = useTranslations(lang);
 
 const [cms, articles] = await Promise.all([

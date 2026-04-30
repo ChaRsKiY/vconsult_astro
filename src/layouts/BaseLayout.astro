@@ -1,25 +1,36 @@
 ---
 import '../styles/globals.css';
+import type { Lang } from '@/i18n/utils';
+import { alternatePath } from '@/i18n/utils';
 
 interface Props {
   title: string;
   description?: string;
+  lang?: Lang;
 }
 
 const {
   title,
   description = 'Beratung in Industriequalität, SAP Excellence Partner.',
+  lang = 'de',
 } = Astro.props;
+
+const altLang = lang === 'de' ? 'en' : 'de';
+const altHref = alternatePath(Astro.url, altLang);
+const canonicalHref = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang="de" class="light">
+<html lang={lang} class="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalHref} />
+    <link rel="alternate" hreflang={lang} href={canonicalHref} />
+    <link rel="alternate" hreflang={altLang} href={altHref} />
   </head>
   <body class="antialiased bg-background-light text-slate-900">
     <slot />

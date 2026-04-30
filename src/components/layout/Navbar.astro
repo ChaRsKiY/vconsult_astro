@@ -1,16 +1,24 @@
 ---
+import type { Lang } from '@/i18n/utils';
+import { useTranslations, localePath, alternatePath } from '@/i18n/utils';
+
 interface Props {
   currentPath: string;
+  lang?: Lang;
 }
 
-const { currentPath } = Astro.props;
+const { currentPath, lang = 'de' } = Astro.props;
+const t = useTranslations(lang);
 
 const navLinks = [
-  { href: "/philosophie", label: "Philosophie" },
-  { href: "/leistungen", label: "Leistungen" },
-  { href: "/news", label: "Aktuelles" },
-  { href: "/unternehmen", label: "Über uns" },
+  { href: localePath('/philosophie', lang), label: t.nav.philosophie },
+  { href: localePath('/leistungen', lang), label: t.nav.leistungen },
+  { href: localePath('/news', lang), label: t.nav.news },
+  { href: localePath('/unternehmen', lang), label: t.nav.unternehmen },
 ];
+
+const altLang = lang === 'de' ? 'en' : 'de';
+const altPath = alternatePath(Astro.url, altLang);
 ---
 
 <header
@@ -20,7 +28,7 @@ const navLinks = [
   <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
     <!-- Logo & Desktop Nav -->
     <div class="flex items-center gap-10">
-      <a href="/" class="flex items-center gap-1.5 group relative z-[60]">
+      <a href={localePath('/', lang)} class="flex items-center gap-1.5 group relative z-[60]">
         <img src="/vconsult_group.png" alt="Logo" width="120" height="120" />
       </a>
       <nav class="hidden items-center gap-8 lg:flex">
@@ -41,21 +49,30 @@ const navLinks = [
       </nav>
     </div>
 
-    <!-- Desktop CTA & Mobile Toggle -->
-    <div class="flex items-center gap-4 relative z-[60]">
+    <!-- Desktop CTA + Lang + Mobile Toggle -->
+    <div class="flex items-center gap-3 relative z-[60]">
+      <!-- Language switcher -->
+      <a
+        href={altPath}
+        aria-label={t.nav.langSwitchLabel}
+        class="hidden lg:inline-flex items-center justify-center h-8 w-10 rounded-lg border border-border-light text-xs font-bold text-slate-500 hover:text-primary hover:border-primary transition-colors"
+      >
+        {t.nav.langSwitchCode}
+      </a>
+
       <div class="hidden lg:block">
         <a
-          href="/kontakt"
+          href={localePath('/kontakt', lang)}
           class="rounded-xl font-bold transition-all shadow-lg inline-flex items-center justify-center gap-2 bg-primary text-white shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] px-5 py-2.5 text-sm"
         >
-          Kontakt aufnehmen
+          {t.nav.cta}
         </a>
       </div>
 
       <button
         id="nav-toggle"
         class="lg:hidden p-2 -mr-2 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
-        aria-label="Menü umschalten"
+        aria-label={t.nav.menuToggle}
       >
         <svg
           id="icon-menu"
@@ -95,9 +112,7 @@ const navLinks = [
     id="nav-menu"
     class="hidden lg:hidden w-full overflow-hidden bg-white/95 backdrop-blur-xl border-b border-border-light absolute top-full left-0 shadow-xl"
   >
-    <div
-      class="flex flex-col px-6 py-8 max-h-[calc(100vh-80px)] overflow-y-auto"
-    >
+    <div class="flex flex-col px-6 py-8 max-h-[calc(100vh-80px)] overflow-y-auto">
       <nav class="flex flex-col gap-6">
         {
           navLinks.map((link) => (
@@ -114,13 +129,19 @@ const navLinks = [
           ))
         }
       </nav>
-      <div class="mt-12 pt-8 border-t border-border-light">
-        <a href="/kontakt" class="block w-full">
+      <div class="mt-8 pt-6 border-t border-border-light flex flex-col gap-4">
+        <a href={localePath('/kontakt', lang)} class="block w-full">
           <button
             class="rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 bg-primary text-white shadow-primary/20 hover:bg-primary/90 px-8 py-4 text-base w-full"
           >
-            Kontakt aufnehmen
+            {t.nav.cta}
           </button>
+        </a>
+        <a
+          href={altPath}
+          class="flex items-center justify-center gap-2 text-sm font-bold text-slate-500 hover:text-primary transition-colors"
+        >
+          {t.nav.langSwitchCode} — {t.nav.langSwitchLabel}
         </a>
       </div>
     </div>

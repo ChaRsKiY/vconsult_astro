@@ -7,7 +7,7 @@ import { useTranslations } from '@/i18n/utils';
 import { fetchContent, fetchKunden } from '@/lib/content';
 import type { SectionContent } from '@/lib/content';
 
-const lang = 'de' as const;
+const lang = 'en' as const;
 const t = useTranslations(lang);
 const [cms, alle] = await Promise.all([fetchContent(lang), fetchKunden()]);
 const c: SectionContent = cms.kunden ?? {};
@@ -16,8 +16,8 @@ const footer = cms.footer ?? {};
 const title       = c.title       ?? t.kunden.title;
 const description = c.description ?? t.kunden.description;
 const breadcrumb  = c.breadcrumb  ?? t.kunden.breadcrumb;
-const kundenLabel   = c.kundenLabel   ?? 'Kunden';
-const partnerLabel  = c.partnerLabel  ?? 'Partner';
+const kundenLabel  = c.kundenLabel  ?? 'Clients';
+const partnerLabel = c.partnerLabel ?? 'Partners';
 
 const kunden   = alle.filter(k => k.type === 'kunde');
 const partners = alle.filter(k => k.type === 'partner');
@@ -33,7 +33,7 @@ const partners = alle.filter(k => k.type === 'partner');
       lang={lang}
     />
 
-    <!-- Kunden -->
+    <!-- Clients -->
     {kunden.length > 0 && (
       <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6">
@@ -71,7 +71,7 @@ const partners = alle.filter(k => k.type === 'partner');
       </section>
     )}
 
-    <!-- Partner -->
+    <!-- Partners -->
     {partners.length > 0 && (
       <section class:list={['py-24 border-t border-border-light', kunden.length > 0 ? 'bg-neutral-soft' : 'bg-white']}>
         <div class="max-w-7xl mx-auto px-6">

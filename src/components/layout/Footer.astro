@@ -1,5 +1,18 @@
 ---
+import type { Lang } from '@/i18n/utils';
+import { useTranslations, localePath } from '@/i18n/utils';
+import type { SectionContent } from '@/lib/content';
 
+interface Props {
+  lang?: Lang;
+  cms?: SectionContent;
+}
+
+const { lang = 'de', cms } = Astro.props;
+const t = useTranslations(lang);
+
+const description = cms?.description ?? t.footer.description;
+const copyright = cms?.copyright ?? t.footer.copyright;
 ---
 
 <footer class="border-t border-border-light bg-white py-16">
@@ -7,20 +20,16 @@
     <div class="flex flex-col justify-between gap-16 lg:flex-row">
       <!-- Brand & Contact -->
       <div class="max-w-sm shrink-0">
-        <a href="/" class="flex items-center gap-1.5 group">
+        <a href={localePath('/', lang)} class="flex items-center gap-1.5 group">
           <img src="/vconsult_group.png" alt="Logo" width="120" height="120" />
         </a>
         <p class="mt-6 text-sm text-slate-500 leading-relaxed mb-8">
-          Führendes SAP- und Beratungsunternehmen, spezialisiert auf
-          IT-Transformationen im industriellen Maßstab und Logistikoptimierung.
-          Mit Sitz in Wien, weltweit tätig.
+          {description}
         </p>
 
         <div class="space-y-4">
-          <h5
-            class="text-xs font-bold uppercase tracking-widest text-slate-900"
-          >
-            Kontakt zu uns
+          <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">
+            {t.footer.contactTitle}
           </h5>
           <address class="not-italic space-y-2 text-sm text-slate-500">
             <p class="font-bold text-slate-700">vconsult GmbH</p>
@@ -29,149 +38,68 @@
               1300 Wien-Flughafen, Österreich
             </p>
             <p>
-              Telefon: <a
-                href="tel:+436645332164"
-                class="hover:text-primary transition-colors"
-                >+43 664 533 21 64</a>
+              Telefon: <a href="tel:+436645332164" class="hover:text-primary transition-colors">+43 664 533 21 64</a>
             </p>
             <p>
-              E-Mail: <a
-                href="mailto:office@vconsult.at"
-                class="hover:text-primary transition-colors"
-                >office@vconsult.at</a>
+              E-Mail: <a href="mailto:office@vconsult.at" class="hover:text-primary transition-colors">office@vconsult.at</a>
             </p>
             <p class="pt-2">UID: ATU57526546</p>
           </address>
         </div>
       </div>
 
-      <!-- Navigation Grid -->
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 grow xl:ml-16"
-      >
+      <!-- Navigation Grid — static links -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 grow xl:ml-16">
         <div>
-          <h5
-            class="text-xs font-bold uppercase tracking-widest text-slate-900"
-          >
-            Leistungen
+          <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">
+            {t.footer.leistungenTitle}
           </h5>
           <ul class="mt-6 space-y-4 text-sm text-slate-500">
-            <li>
-              <a href="/leistungen" class="hover:text-primary transition-colors"
-                >SAP Logistik</a>
-            </li>
-            <li>
-              <a href="/leistungen" class="hover:text-primary transition-colors"
-                >Outsourcing</a>
-            </li>
-            <li>
-              <a
-                href="/philosophie"
-                class="hover:text-primary transition-colors"
-                >mBaIT Philosophie</a>
-            </li>
+            <li><a href={localePath('/leistungen', lang)} class="hover:text-primary transition-colors">{t.footer.leistungenLinks.sapLogistik}</a></li>
+            <li><a href={localePath('/leistungen', lang)} class="hover:text-primary transition-colors">{t.footer.leistungenLinks.outsourcing}</a></li>
+            <li><a href={localePath('/philosophie', lang)} class="hover:text-primary transition-colors">{t.footer.leistungenLinks.mbait}</a></li>
           </ul>
         </div>
 
         <div>
-          <h5
-            class="text-xs font-bold uppercase tracking-widest text-slate-900"
-          >
-            Unternehmen
+          <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">
+            {t.footer.unternehmenTitle}
           </h5>
           <ul class="mt-6 space-y-4 text-sm text-slate-500">
-            <li>
-              <a
-                href="/unternehmen"
-                class="hover:text-primary transition-colors">Über uns</a>
-            </li>
-            <li>
-              <a href="/news" class="hover:text-primary transition-colors"
-                >Aktuelles</a>
-            </li>
-            <li>
-              <a href="/kunden" class="hover:text-primary transition-colors"
-                >Kunden & Partner</a>
-            </li>
+            <li><a href={localePath('/unternehmen', lang)} class="hover:text-primary transition-colors">{t.footer.unternehmenLinks.about}</a></li>
+            <li><a href={localePath('/news', lang)} class="hover:text-primary transition-colors">{t.footer.unternehmenLinks.news}</a></li>
+            <li><a href={localePath('/kunden', lang)} class="hover:text-primary transition-colors">{t.footer.unternehmenLinks.kunden}</a></li>
           </ul>
         </div>
 
         <div>
-          <h5
-            class="text-xs font-bold uppercase tracking-widest text-slate-900"
-          >
-            Rechtliches
+          <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">
+            {t.footer.rechtlichesTitle}
           </h5>
           <ul class="mt-6 space-y-4 text-sm text-slate-500">
-            <li>
-              <a href="/kontakt" class="hover:text-primary transition-colors"
-                >Kontakt aufnehmen</a>
-            </li>
-            <li>
-              <a href="/impressum" class="hover:text-primary transition-colors"
-                >Impressum</a>
-            </li>
-            <li>
-              <a
-                href="/datenschutz"
-                class="hover:text-primary transition-colors">Datenschutz</a>
-            </li>
+            <li><a href={localePath('/kontakt', lang)} class="hover:text-primary transition-colors">{t.footer.rechtlichesLinks.kontakt}</a></li>
+            <li><a href={localePath('/impressum', lang)} class="hover:text-primary transition-colors">{t.footer.rechtlichesLinks.impressum}</a></li>
+            <li><a href={localePath('/datenschutz', lang)} class="hover:text-primary transition-colors">{t.footer.rechtlichesLinks.datenschutz}</a></li>
           </ul>
         </div>
 
         <div>
-          <h5
-            class="text-xs font-bold uppercase tracking-widest text-slate-900"
-          >
-            Partnerunternehmen
+          <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">
+            {t.footer.partnerTitle}
           </h5>
           <ul class="mt-6 space-y-4 text-sm text-slate-500">
-            <li>
-              <a
-                href="https://www.e-learning-consulting.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary transition-colors"
-                >e-learning-consulting.com</a>
-            </li>
-            <li>
-              <a
-                href="https://www.dcg.at"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary transition-colors">dcg.at</a>
-            </li>
-            <li>
-              <a
-                href="https://www.curo.at"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary transition-colors">curo.at</a>
-            </li>
-            <li>
-              <a
-                href="https://www.concircle.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary transition-colors">concircle.com</a>
-            </li>
-            <li>
-              <a
-                href="https://www.cadaxo.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary transition-colors">cadaxo.com</a>
-            </li>
+            <li><a href="https://www.e-learning-consulting.com" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">e-learning-consulting.com</a></li>
+            <li><a href="https://www.dcg.at" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">dcg.at</a></li>
+            <li><a href="https://www.curo.at" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">curo.at</a></li>
+            <li><a href="https://www.concircle.com" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">concircle.com</a></li>
+            <li><a href="https://www.cadaxo.com" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">cadaxo.com</a></li>
           </ul>
         </div>
       </div>
     </div>
 
-    <div
-      class="mt-20 border-t border-border-light pt-8 text-center text-xs text-slate-400"
-    >
-      © 2024 vconsult GmbH. Alle Rechte vorbehalten. Beratung in
-      Industriequalität.
+    <div class="mt-20 border-t border-border-light pt-8 text-center text-xs text-slate-400">
+      {copyright}
     </div>
   </div>
 </footer>

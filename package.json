@@ -2,30 +2,35 @@
   "name": "vconsult-astro",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "NODE_OPTIONS='--max-http-header-size=32768' astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "NODE_OPTIONS='--max-http-header-size=32768' astro preview",
     "astro": "astro",
     "lint": "biome check",
     "format": "biome format --write"
   },
   "dependencies": {
-    "@astrojs/react": "^4.0.0",
-    "astro": "^5.0.0",
+    "@astrojs/react": "^5.0.3",
+    "@astrojs/sitemap": "^3.7.2",
+    "@supabase/supabase-js": "^2.105.1",
+    "astro": "^6.1.5",
     "lucide-react": "^0.576.0",
     "marked": "^13.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@biomejs/biome": "2.2.0",
     "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.0.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "tailwindcss": "^4.0.0",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tailwindcss": "^4.2.2",
     "typescript": "^5"
   }
 }

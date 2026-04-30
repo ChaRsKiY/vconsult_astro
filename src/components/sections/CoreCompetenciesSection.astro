@@ -1,24 +1,32 @@
 ---
-const competencies = [
-  { title: 'SAP MM', description: 'Transparente Abbildung kompletter interner und externer Beschaffungsprozesse von Materialien und Dienstleistungen inklusive Bedarfsermittlung und Integration zur Finanz.' },
-  { title: 'SAP EWM', description: 'Flexible automatisierte Unterstützung bei der Abwicklung sämtlicher Warenbewegungen und der Verwaltung der Bestände in Ihrem Lagerkomplex.' },
-  { title: 'SAP WMS', description: 'Flexible automatisierte Unterstützung bei der Abwicklung sämtlicher Warenbewegungen und der Verwaltung der Bestände in Ihrem Lagerkomplex.' },
-  { title: 'SAP PP', description: 'Effiziente Gestaltung Ihrer Produktionsplanungs-, Produktionsdurchführungs-Prozesse und Kontroll-Prozesse.' },
-  { title: 'SAP SD', description: 'Abbildung aller zum Vertrieb von Produkten oder Dienstleistung gehörenden operativen Prozesse.' },
-  { title: 'SAP S/4HANA', description: 'Die ERP-Business-Suite der nächsten Generation auf Basis der leistungsfähigen In-Memory-Technologie.' },
-  { title: 'SAP SRM', description: 'Innovative Methoden zur Koordination der Geschäftsprozesse mit Schlüssellieferanten zur Steigerung der Effizienz.' },
-  { title: 'SAP BW/4HANA', description: 'Werkzeuge zur Reporting, Analyse und Interpretation von Unternehmensdaten für marktgerechtes Agieren.' },
-];
+import type { Lang } from '@/i18n/utils';
+import { useTranslations } from '@/i18n/utils';
+import type { SectionContent } from '@/lib/content';
+
+interface Props {
+  lang?: Lang;
+  cms?: SectionContent;
+}
+
+const { lang = 'de', cms } = Astro.props;
+const t = useTranslations(lang);
+
+const sectionTitle = cms?.title ?? t.coreCompetencies.title;
+
+const items = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
+  title: cms?.[`item${n}Title`] ?? t.coreCompetencies.items[n - 1].title,
+  description: cms?.[`item${n}Desc`] ?? t.coreCompetencies.items[n - 1].description,
+}));
 ---
 
 <section class="py-32 bg-white" id="core-competencies">
   <div class="max-w-7xl mx-auto px-6">
     <div class="mb-16">
-      <h2 class="text-4xl font-normal text-slate-900 mb-4 tracking-tight">Unsere SAP Kernkompetenzen</h2>
+      <h2 class="text-4xl font-normal text-slate-900 mb-4 tracking-tight">{sectionTitle}</h2>
       <div class="h-1 w-20 bg-primary rounded-full mb-2"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-      {competencies.map((comp, i) => (
+      {items.map((comp, i) => (
         <div
           data-animate
           data-animate-delay={i > 0 ? String(Math.min(i, 6)) : undefined}

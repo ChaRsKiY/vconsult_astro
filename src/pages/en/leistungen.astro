@@ -7,7 +7,7 @@ import { useTranslations, localePath } from '@/i18n/utils';
 import { fetchContent } from '@/lib/content';
 import type { SectionContent } from '@/lib/content';
 
-const lang = 'de' as const;
+const lang = 'en' as const;
 const t = useTranslations(lang);
 const cms = await fetchContent(lang);
 const c: SectionContent = cms.leistungen ?? {};
@@ -71,7 +71,7 @@ const footer          = cms.footer ?? {};
             </div>
           </div>
 
-          <!-- Card 2: SAP Logistik -->
+          <!-- Card 2: SAP Logistics -->
           <div data-animate data-animate-delay="1" class="rounded-3xl border border-border-light bg-neutral-soft p-10 flex flex-col gap-8">
             <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm text-primary">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/><path d="M22 3h-6v12h6V3Z"/><path d="M16 8h6"/><path d="M16 12h6"/><path d="M6 14H4"/><path d="M6 18H4"/><path d="M10 14H8"/><path d="M10 18H8"/></svg>

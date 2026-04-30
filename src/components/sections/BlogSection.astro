@@ -1,57 +1,82 @@
 ---
-import { allArticles } from '@/data/news';
+import type { Lang } from '@/i18n/utils';
+import { useTranslations, localePath } from '@/i18n/utils';
+import type { SectionContent, ArticleItem } from '@/lib/content';
 
-const recentBlogs = [...allArticles]
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  .slice(0, 4);
+interface Props {
+  lang?: Lang;
+  cms?: SectionContent;
+  articles?: ArticleItem[];
+}
+
+const { lang = 'de', cms, articles = [] } = Astro.props;
+const t = useTranslations(lang);
+
+const sectionTitle = cms?.title ?? t.blog.title;
+
+const recentBlogs = articles.length > 0
+  ? articles.slice(0, 4)
+  : [];
 ---
 
 <section class="py-32 bg-white" id="blog">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-16">
-      <h2 class="text-4xl font-normal text-slate-900 mb-4 tracking-tight">Aktuelle Beiträge</h2>
+      <h2 class="text-4xl font-normal text-slate-900 mb-4 tracking-tight">{sectionTitle}</h2>
       <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-      {recentBlogs.map((blog, i) => (
-        <article
-          data-animate
-          data-animate-delay={i > 0 ? String(Math.min(i, 6)) : undefined}
-          class="group cursor-pointer"
-        >
-          <div class="relative aspect-[16/10] overflow-hidden rounded-2xl mb-6 bg-neutral-soft">
-            <img
-              alt={blog.title}
-              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-              src={blog.image}
-            />
-            <div class="absolute top-4 left-4">
-              <span class="rounded-full bg-secondary/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                {blog.category}
-              </span>
-            </div>
-          </div>
-          <a href={`/news/${blog.slug}`}>
-            <h3 class="text-xl font-normal text-slate-900 mb-3 leading-tight group-hover:text-primary transition-colors">
-              {blog.title}
-            </h3>
-          </a>
-          <p class="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">{blog.shortDescription}</p>
-          <a
-            href={`/news/${blog.slug}`}
-            class="inline-flex items-center gap-2 text-sm font-bold text-primary"
+    {recentBlogs.length === 0 ? (
+      <div class="text-center py-16 text-slate-400">
+        <p class="text-sm">Noch keine Artikel vorhanden.</p>
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        {recentBlogs.map((blog, i) => (
+          <article
+            data-animate
+            data-animate-delay={i > 0 ? String(Math.min(i, 6)) : undefined}
+            class="group cursor-pointer"
           >
-            Mehr lesen
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-        </article>
-      ))}
-    </div>
+            <div class="relative aspect-[16/10] overflow-hidden rounded-2xl mb-6 bg-neutral-soft">
+              {blog.image ? (
+                <img
+                  alt={blog.title}
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  src={blog.image}
+                />
+              ) : (
+                <div class="h-full w-full flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+              )}
+              <div class="absolute top-4 left-4">
+                <span class="rounded-full bg-secondary/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                  {blog.category}
+                </span>
+              </div>
+            </div>
+            <a href={localePath(`/news/${blog.slug}`, lang)}>
+              <h3 class="text-xl font-normal text-slate-900 mb-3 leading-tight group-hover:text-primary transition-colors">
+                {blog.title}
+              </h3>
+            </a>
+            <p class="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">{blog.shortDescription}</p>
+            <a
+              href={localePath(`/news/${blog.slug}`, lang)}
+              class="inline-flex items-center gap-2 text-sm font-bold text-primary"
+            >
+              {t.blog.readMore}
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
 
     <div class="flex justify-center">
-      <a href="/news" class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm">
-        Alle Beiträge ansehen
+      <a href={localePath('/news', lang)} class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm">
+        {t.blog.allPosts}
       </a>
     </div>
   </div>

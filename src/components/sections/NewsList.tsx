@@ -1,8 +1,28 @@
 import React, { useState, useMemo } from "react";
 import { ArrowRight, Calendar, Tag as TagIcon, LayoutGrid, List, ChevronDown, Check } from "lucide-react";
-import { allArticles } from "@/data/news";
+import type { ArticleItem } from "@/lib/content";
 
-export const NewsList: React.FC = () => {
+interface NewsTranslations {
+  categoryLabel: string;
+  allCategories: string;
+  tagsLabel: string;
+  allTags: string;
+  tagsSelected: string;
+  sortLabel: string;
+  sortNewest: string;
+  sortOldest: string;
+  noArticles: string;
+  resetFilters: string;
+  readArticle: string;
+}
+
+interface Props {
+  lang?: string;
+  translations: NewsTranslations;
+  articles: ArticleItem[];
+}
+
+export const NewsList: React.FC<Props> = ({ lang = 'de', translations: tr, articles }) => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
@@ -11,11 +31,11 @@ export const NewsList: React.FC = () => {
     const [isTagOpen, setIsTagOpen] = useState(false);
     const [isSortOpen, setIsSortOpen] = useState(false);
 
-    const categories = useMemo(() => Array.from(new Set(allArticles.map((a) => a.category))), []);
-    const tags = useMemo(() => Array.from(new Set(allArticles.flatMap((a) => a.tags))), []);
+    const categories = useMemo(() => Array.from(new Set(articles.map((a) => a.category))), [articles]);
+    const tags = useMemo(() => Array.from(new Set(articles.flatMap((a) => a.tags))), [articles]);
 
     const filteredAndSortedArticles = useMemo(() => {
-        let result = [...allArticles];
+        let result = [...articles];
         if (selectedCategory) result = result.filter((a) => a.category === selectedCategory);
         if (selectedTags.length > 0) result = result.filter((a) => selectedTags.some(t => a.tags.includes(t)));
         result.sort((a, b) => {
@@ -24,16 +44,18 @@ export const NewsList: React.FC = () => {
             return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
         });
         return result;
-    }, [selectedCategory, selectedTags, sortOrder]);
+    }, [articles, selectedCategory, selectedTags, sortOrder]);
 
     const formatDate = (dateString: string) =>
-        new Date(dateString).toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" });
+        new Date(dateString).toLocaleDateString(lang === 'en' ? 'en-GB' : 'de-DE', { day: "2-digit", month: "short", year: "numeric" });
 
     const toggleTag = (tag: string) => {
         setSelectedTags(prev =>
             prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
         );
     };
+
+    const newsPath = (slug: string) => lang === 'en' ? `/en/news/${slug}` : `/news/${slug}`;
 
     return (
         <section className="py-20 bg-neutral-soft">
@@ -44,14 +66,14 @@ export const NewsList: React.FC = () => {
                         {/* Category */}
                         <div className="relative w-full sm:w-56">
                             <label className="text-sm font-semibold text-slate-900 flex items-center gap-2 mb-2">
-                                <LayoutGrid className="w-4 h-4 text-primary" /> Kategorie
+                                <LayoutGrid className="w-4 h-4 text-primary" /> {tr.categoryLabel}
                             </label>
                             <div className="relative">
                                 <button
                                     onClick={() => { setIsCategoryOpen(!isCategoryOpen); setIsTagOpen(false); setIsSortOpen(false); }}
                                     className="w-full bg-neutral-soft text-slate-700 text-sm rounded-xl px-4 py-2.5 flex justify-between items-center transition-colors focus:ring-2 focus:ring-primary focus:outline-none"
                                 >
-                                    <span className="truncate font-medium">{selectedCategory || "Alle Kategorien"}</span>
+                                    <span className="truncate font-medium">{selectedCategory || tr.allCategories}</span>
                                     <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 {isCategoryOpen && (
@@ -62,7 +84,7 @@ export const NewsList: React.FC = () => {
                                                 onClick={() => { setSelectedCategory(null); setIsCategoryOpen(false); }}
                                                 className={`w-full text-left px-4 py-2.5 text-sm hover:bg-neutral-soft flex items-center justify-between transition-colors ${!selectedCategory ? 'font-bold text-primary bg-primary/5' : 'text-slate-700'}`}
                                             >
-                                                Alle Kategorien
+                                                {tr.allCategories}
                                                 {!selectedCategory && <Check className="w-4 h-4 text-primary" />}
                                             </button>
                                             {categories.map(cat => (
@@ -84,7 +106,7 @@ export const NewsList: React.FC = () => {
                         {/* Tags */}
                         <div className="relative w-full sm:w-56">
                             <label className="text-sm font-semibold text-slate-900 flex items-center gap-2 mb-2">
-                                <TagIcon className="w-4 h-4 text-primary" /> Tags
+                                <TagIcon className="w-4 h-4 text-primary" /> {tr.tagsLabel}
                             </label>
                             <div className="relative">
                                 <button
@@ -92,7 +114,7 @@ export const NewsList: React.FC = () => {
                                     className="w-full bg-neutral-soft text-slate-700 text-sm rounded-xl px-4 py-2.5 flex justify-between items-center transition-colors focus:ring-2 focus:ring-primary focus:outline-none"
                                 >
                                     <span className="truncate font-medium">
-                                        {selectedTags.length === 0 ? "Alle Tags" : `${selectedTags.length} Tag${selectedTags.length > 1 ? 's' : ''} gewählt`}
+                                        {selectedTags.length === 0 ? tr.allTags : `${selectedTags.length} ${tr.tagsSelected}`}
                                     </span>
                                     <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isTagOpen ? 'rotate-180' : ''}`} />
                                 </button>
@@ -107,7 +129,7 @@ export const NewsList: React.FC = () => {
                                                 <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${selectedTags.length === 0 ? 'bg-primary border-primary' : 'border-slate-300 bg-white'}`}>
                                                     {selectedTags.length === 0 && <Check className="w-3 h-3 text-white" />}
                                                 </div>
-                                                Alle Tags
+                                                {tr.allTags}
                                             </button>
                                             {tags.map(tag => {
                                                 const isSelected = selectedTags.includes(tag);
@@ -134,14 +156,14 @@ export const NewsList: React.FC = () => {
                     {/* Sort */}
                     <div className="relative w-full md:w-56 shrink-0">
                         <label className="text-sm font-semibold text-slate-900 flex items-center gap-2 mb-2">
-                            <List className="w-4 h-4 text-primary" /> Sortierung
+                            <List className="w-4 h-4 text-primary" /> {tr.sortLabel}
                         </label>
                         <div className="relative">
                             <button
                                 onClick={() => { setIsSortOpen(!isSortOpen); setIsCategoryOpen(false); setIsTagOpen(false); }}
                                 className="w-full bg-neutral-soft text-slate-700 text-sm rounded-xl px-4 py-2.5 flex justify-between items-center transition-colors focus:ring-2 focus:ring-primary focus:outline-none"
                             >
-                                <span className="truncate font-medium">{sortOrder === "newest" ? "Neueste zuerst" : "Älteste zuerst"}</span>
+                                <span className="truncate font-medium">{sortOrder === "newest" ? tr.sortNewest : tr.sortOldest}</span>
                                 <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isSortOpen ? 'rotate-180' : ''}`} />
                             </button>
                             {isSortOpen && (
@@ -152,14 +174,14 @@ export const NewsList: React.FC = () => {
                                             onClick={() => { setSortOrder("newest"); setIsSortOpen(false); }}
                                             className={`w-full text-left px-4 py-2.5 text-sm hover:bg-neutral-soft flex items-center justify-between transition-colors ${sortOrder === "newest" ? 'font-bold text-primary bg-primary/5' : 'text-slate-700'}`}
                                         >
-                                            Neueste zuerst
+                                            {tr.sortNewest}
                                             {sortOrder === "newest" && <Check className="w-4 h-4 text-primary" />}
                                         </button>
                                         <button
                                             onClick={() => { setSortOrder("oldest"); setIsSortOpen(false); }}
                                             className={`w-full text-left px-4 py-2.5 text-sm hover:bg-neutral-soft flex items-center justify-between transition-colors ${sortOrder === "oldest" ? 'font-bold text-primary bg-primary/5' : 'text-slate-700'}`}
                                         >
-                                            Älteste zuerst
+                                            {tr.sortOldest}
                                             {sortOrder === "oldest" && <Check className="w-4 h-4 text-primary" />}
                                         </button>
                                     </div>
@@ -175,11 +197,17 @@ export const NewsList: React.FC = () => {
                         {filteredAndSortedArticles.map((article) => (
                             <div key={article.id} className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm border border-border-light hover:shadow-xl transition-all duration-300">
                                 <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                                    <img
-                                        alt={article.title}
-                                        src={article.image}
-                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
+                                    {article.image ? (
+                                        <img
+                                            alt={article.title}
+                                            src={article.image}
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center bg-slate-100">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                                        </div>
+                                    )}
                                     <div className="absolute top-4 left-4 flex flex-col gap-2">
                                         <span className="rounded-full bg-slate-900/80 backdrop-blur-md px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white w-fit">
                                             {article.category}
@@ -191,7 +219,7 @@ export const NewsList: React.FC = () => {
                                         <Calendar className="w-3.5 h-3.5" />
                                         {formatDate(article.date)}
                                     </div>
-                                    <a href={`/news/${article.slug}`}>
+                                    <a href={newsPath(article.slug)}>
                                         <h3 className="text-xl font-bold text-slate-900 mb-3 leading-tight group-hover:text-primary transition-colors">
                                             {article.title}
                                         </h3>
@@ -203,8 +231,8 @@ export const NewsList: React.FC = () => {
                                         ))}
                                     </div>
                                     <div className="pt-4 border-t border-border-light mt-auto">
-                                        <a href={`/news/${article.slug}`} className="inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:text-secondary transition-colors">
-                                            Artikel lesen <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        <a href={newsPath(article.slug)} className="inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:text-secondary transition-colors">
+                                            {tr.readArticle} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </a>
                                     </div>
                                 </div>
@@ -213,12 +241,12 @@ export const NewsList: React.FC = () => {
                     </div>
                 ) : (
                     <div className="text-center py-24 bg-white rounded-2xl border border-border-light relative z-10">
-                        <p className="text-slate-500 text-lg">Keine Artikel gefunden, die Ihren Kriterien entsprechen.</p>
+                        <p className="text-slate-500 text-lg">{tr.noArticles}</p>
                         <button
                             className="mt-6 rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm"
                             onClick={() => { setSelectedCategory(null); setSelectedTags([]); }}
                         >
-                            Filter zurücksetzen
+                            {tr.resetFilters}
                         </button>
                     </div>
                 )}
