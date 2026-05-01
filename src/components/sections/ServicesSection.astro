@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '@/i18n/utils';
-import { useTranslations, localePath } from '@/i18n/utils';
+import { localePath } from '@/i18n/utils';
 import type { SectionContent } from '@/lib/content';
 
 interface Props {
@@ -9,27 +9,26 @@ interface Props {
 }
 
 const { lang = 'de', cms } = Astro.props;
-const t = useTranslations(lang);
 
-const title = cms?.title ?? t.services.title;
-const subtitle = cms?.subtitle ?? t.services.subtitle;
-const allLink = cms?.allLink ?? t.services.allLink;
-const card1Title = cms?.card1Title ?? t.services.card1Title;
-const card1Desc = cms?.card1Desc ?? t.services.card1Desc;
-const card1Feature1 = cms?.card1Feature1 ?? t.services.card1Feature1;
-const card1Feature2 = cms?.card1Feature2 ?? t.services.card1Feature2;
-const card1Cta = cms?.card1Cta ?? t.services.card1Cta;
-const card2Title = cms?.card2Title ?? t.services.card2Title;
-const card2Desc = cms?.card2Desc ?? t.services.card2Desc;
-const card2Feature1 = cms?.card2Feature1 ?? t.services.card2Feature1;
-const card2Feature2 = cms?.card2Feature2 ?? t.services.card2Feature2;
-const card2Cta = cms?.card2Cta ?? t.services.card2Cta;
-const card2Badge = cms?.card2Badge ?? t.services.card2Badge;
-const card3Title = cms?.card3Title ?? t.services.card3Title;
-const card3Desc = cms?.card3Desc ?? t.services.card3Desc;
-const card3Feature1 = cms?.card3Feature1 ?? t.services.card3Feature1;
-const card3Feature2 = cms?.card3Feature2 ?? t.services.card3Feature2;
-const card3Cta = cms?.card3Cta ?? t.services.card3Cta;
+const title = cms?.title;
+const subtitle = cms?.subtitle;
+const allLink = cms?.allLink;
+const card1Title = cms?.card1Title;
+const card1Desc = cms?.card1Desc;
+const card1Feature1 = cms?.card1Feature1;
+const card1Feature2 = cms?.card1Feature2;
+const card1Cta = cms?.card1Cta;
+const card2Title = cms?.card2Title;
+const card2Desc = cms?.card2Desc;
+const card2Feature1 = cms?.card2Feature1;
+const card2Feature2 = cms?.card2Feature2;
+const card2Cta = cms?.card2Cta;
+const card2Badge = cms?.card2Badge;
+const card3Title = cms?.card3Title;
+const card3Desc = cms?.card3Desc;
+const card3Feature1 = cms?.card3Feature1;
+const card3Feature2 = cms?.card3Feature2;
+const card3Cta = cms?.card3Cta;
 ---
 
 <section class="bg-neutral-soft py-32" id="services">
@@ -110,7 +109,7 @@ const card3Cta = cms?.card3Cta ?? t.services.card3Cta;
             {card3Feature2}
           </li>
         </ul>
-        <a href={localePath('/philosophie', lang)} class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm w-full">
+        <a href={localePath('/leistungen/enterprise-ai', lang)} class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 shadow-none hover:bg-neutral-soft px-8 py-3 text-sm w-full">
           {card3Cta}
         </a>
       </div>

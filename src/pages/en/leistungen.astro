@@ -12,26 +12,32 @@ const t = useTranslations(lang);
 const cms = await fetchContent(lang);
 const c: SectionContent = cms.leistungen ?? {};
 
-const title           = c.title           ?? t.leistungen.title;
-const description     = c.description     ?? t.leistungen.description;
-const breadcrumb      = c.breadcrumb      ?? t.leistungen.breadcrumb;
-const outsourcingTitle= c.outsourcingTitle ?? t.leistungen.outsourcingTitle;
-const outsourcingDesc = c.outsourcingDesc  ?? t.leistungen.outsourcingDesc;
-const vconsupportLabel= c.vconsupportLabel ?? t.leistungen.vconsupportLabel;
-const vconsupportTitle= c.vconsupportTitle ?? t.leistungen.vconsupportTitle;
-const downloads       = [1,2,3].map(n => c[`download${n}`] ?? t.leistungen.downloads[n-1]);
-const sapTitle        = c.sapTitle         ?? t.leistungen.sapTitle;
-const sapDesc         = c.sapDesc          ?? t.leistungen.sapDesc;
-const schwerpunkte    = c.schwerpunkteLabel ?? t.leistungen.schwerpunkteLabel;
-const competencies    = [1,2,3,4,5].map(n => c[`competency${n}`] ?? t.leistungen.competencies[n-1]);
-const mBaITQuote      = c.mBaITQuote      ?? t.leistungen.mBaITQuote;
-const mBaITHighlight  = c.mBaITHighlight  ?? t.leistungen.mBaITHighlight;
-const mBaITText       = c.mBaITText       ?? t.leistungen.mBaITText;
-const philosophieLink = c.philosophieLink  ?? t.leistungen.philosophieLink;
+const title           = c.title;
+const description     = c.description;
+const breadcrumb      = c.breadcrumb;
+const outsourcingTitle= c.outsourcingTitle;
+const outsourcingDesc = c.outsourcingDesc;
+const vconsupportLabel= c.vconsupportLabel;
+const vconsupportTitle= c.vconsupportTitle;
+const downloadLabels  = [1,2,3].map(n => c[`download${n}`]);
+const downloadFiles   = [
+  '/downloads/marketing-one-Pager-general.pdf',
+  '/downloads/marketing-one-Pager-Aussenhandel.pdf',
+  '/downloads/marketing-one-Pager-clean-system-1.pdf',
+];
+const downloads = downloadLabels.map((label, i) => ({ label, file: downloadFiles[i] }));
+const sapTitle        = c.sapTitle;
+const sapDesc         = c.sapDesc;
+const schwerpunkte    = c.schwerpunkteLabel;
+const competencies    = [1,2,3,4,5].map(n => c[`competency${n}`]);
+const mBaITQuote      = c.mBaITQuote;
+const mBaITHighlight  = c.mBaITHighlight;
+const mBaITText       = c.mBaITText;
+const philosophieLink = c.philosophieLink;
 const footer          = cms.footer ?? {};
 ---
 
-<BaseLayout title={t.meta.leistungenTitle} description={t.meta.leistungenDescription} lang={lang}>
+<BaseLayout title="Our Services - vconsult" description="Outsourcing and holistic SAP logistics optimization" lang={lang}>
   <Navbar currentPath={Astro.url.pathname} lang={lang} />
   <main>
     <PageHeader
@@ -60,11 +66,20 @@ const footer          = cms.footer ?? {};
               <h3 class="text-lg font-normal text-slate-900 mb-4">{vconsupportTitle}</h3>
               <ul class="space-y-3">
                 {downloads.map(item => (
-                  <li class="flex items-center gap-3 group cursor-pointer">
-                    <div class="flex-shrink-0 h-8 w-8 rounded-lg bg-primary/8 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 17v-6"/><path d="m9 14 3 3 3-3"/></svg>
-                    </div>
-                    <span class="text-sm text-slate-700 group-hover:text-primary transition-colors">{item} <span class="text-slate-400">{t.leistungen.downloadPdf}</span></span>
+                  <li>
+                    <a
+                      href={item.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex items-center gap-3 group"
+                    >
+                      <div class="flex-shrink-0 h-8 w-8 rounded-lg bg-primary/8 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 17v-6"/><path d="m9 14 3 3 3-3"/></svg>
+                      </div>
+                      <span class="text-sm text-slate-700 group-hover:text-primary transition-colors">
+                        {item.label} <span class="text-slate-400">{t.leistungen.downloadPdf}</span>
+                      </span>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -91,6 +106,39 @@ const footer          = cms.footer ?? {};
                 ))}
               </ul>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enterprise AI Teaser -->
+    <section class="py-16 bg-white border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <div data-animate class="rounded-3xl border border-primary/20 bg-primary/[0.03] p-8 md:p-12 flex flex-col md:flex-row md:items-center gap-8">
+          <div class="flex-grow">
+            <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-3">A product by vconsult Group</p>
+            <h2 class="text-2xl font-normal text-slate-900 mb-3 tracking-tight">Enterprise AI with SAP Integration</h2>
+            <p class="text-slate-600 leading-relaxed max-w-2xl">
+              Enterprisebrain connects AI directly to your SAP systems — for real-time analytics, process automation, and intelligent support. Already live with 6+ active use cases at customer sites.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
+            <a
+              href={localePath('/leistungen/enterprise-ai', lang)}
+              class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 bridge-gradient text-white shadow-primary/20 shadow-lg px-6 py-3 text-sm hover:opacity-90 whitespace-nowrap"
+            >
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a
+              href="https://enterprisebrain.eu"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-xl font-bold transition-all inline-flex items-center justify-center gap-2 border border-border-light bg-white text-slate-900 hover:bg-neutral-soft px-6 py-3 text-sm whitespace-nowrap"
+            >
+              enterprisebrain.eu
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
           </div>
         </div>
       </div>

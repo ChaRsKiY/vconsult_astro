@@ -14,29 +14,34 @@ const cms = await fetchContent(lang);
 const c: SectionContent = cms.kontakt ?? {};
 const footer = cms.footer ?? {};
 
-const title                  = c.title                  ?? t.kontakt.title;
-const description            = c.description            ?? t.kontakt.description;
-const breadcrumb             = c.breadcrumb             ?? t.kontakt.breadcrumb;
-const heading                = c.heading                ?? t.kontakt.heading;
-const subheading             = c.subheading             ?? t.kontakt.subheading;
-const addressTitle           = c.addressTitle           ?? t.kontakt.addressTitle;
-const addressLine1           = c.addressLine1           ?? t.kontakt.addressLine1;
-const addressLine2           = c.addressLine2           ?? t.kontakt.addressLine2;
-const phoneTitle             = c.phoneTitle             ?? t.kontakt.phoneTitle;
-const emailTitle             = c.emailTitle             ?? t.kontakt.emailTitle;
-const formTitle              = c.formTitle              ?? t.kontakt.formTitle;
-const firstNameLabel         = c.firstNameLabel         ?? t.kontakt.firstNameLabel;
-const firstNamePlaceholder   = c.firstNamePlaceholder   ?? t.kontakt.firstNamePlaceholder;
-const lastNameLabel          = c.lastNameLabel          ?? t.kontakt.lastNameLabel;
-const lastNamePlaceholder    = c.lastNamePlaceholder    ?? t.kontakt.lastNamePlaceholder;
-const emailLabel             = c.emailLabel             ?? t.kontakt.emailLabel;
-const emailPlaceholder       = c.emailPlaceholder       ?? t.kontakt.emailPlaceholder;
-const messageLabel           = c.messageLabel           ?? t.kontakt.messageLabel;
-const messagePlaceholder     = c.messagePlaceholder     ?? t.kontakt.messagePlaceholder;
-const submitBtn              = c.submitBtn              ?? t.kontakt.submitBtn;
+const title                  = c.title;
+const description            = c.description;
+const breadcrumb             = c.breadcrumb;
+const heading                = c.heading;
+const subheading             = c.subheading;
+const addressTitle           = c.addressTitle;
+const addressLine1           = c.addressLine1;
+const addressLine2           = c.addressLine2;
+const phoneTitle             = c.phoneTitle;
+const emailTitle             = c.emailTitle;
+const formTitle              = c.formTitle;
+const companyLabel           = c.companyLabel;
+const companyPlaceholder     = c.companyPlaceholder;
+const nameLabel              = c.nameLabel;
+const namePlaceholder        = c.namePlaceholder;
+const phoneLabel             = c.phoneLabel;
+const phonePlaceholder       = c.phonePlaceholder;
+const emailLabel             = c.emailLabel;
+const emailPlaceholder       = c.emailPlaceholder;
+const interestLabel          = c.interestLabel;
+const interestPlaceholder    = c.interestPlaceholder;
+const interestOptions        = t.kontakt.interestOptions;
+const messageLabel           = c.messageLabel;
+const messagePlaceholder     = c.messagePlaceholder;
+const submitBtn              = c.submitBtn;
 ---
 
-<BaseLayout title={t.meta.kontaktTitle} description={t.meta.kontaktDescription} lang={lang}>
+<BaseLayout title="Kontakt - vconsult" description="Haben Sie Fragen, benötigen Sie Unterstützung? Bitte kontaktieren Sie uns unverbindlich." lang={lang}>
   <Navbar currentPath={Astro.url.pathname} lang={lang} />
   <main>
     <PageHeader
@@ -94,12 +99,17 @@ const submitBtn              = c.submitBtn              ?? t.kontakt.submitBtn;
           client:load
           lang={lang}
           formTitle={formTitle}
-          firstNameLabel={firstNameLabel}
-          firstNamePlaceholder={firstNamePlaceholder}
-          lastNameLabel={lastNameLabel}
-          lastNamePlaceholder={lastNamePlaceholder}
+          companyLabel={companyLabel}
+          companyPlaceholder={companyPlaceholder}
+          nameLabel={nameLabel}
+          namePlaceholder={namePlaceholder}
+          phoneLabel={phoneLabel}
+          phonePlaceholder={phonePlaceholder}
           emailLabel={emailLabel}
           emailPlaceholder={emailPlaceholder}
+          interestLabel={interestLabel}
+          interestPlaceholder={interestPlaceholder}
+          interestOptions={interestOptions}
           messageLabel={messageLabel}
           messagePlaceholder={messagePlaceholder}
           submitBtn={submitBtn}
@@ -110,7 +120,7 @@ const submitBtn              = c.submitBtn              ?? t.kontakt.submitBtn;
     <!-- Google Maps -->
     <section class="h-[500px] w-full bg-slate-200 relative overflow-hidden">
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2664.0850772091763!2d16.556272315648835!3d48.11822897922258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d079aa803ec27%3A0x6d9f0ab0c2e33f67!2sAirportCity%20Space!5e0!3m2!1sen!2sat!4v1700000000000!5m2!1sen!2sat"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5326.6315965108315!2d16.561677!3d48.123433000000006!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c55bb19bc677b%3A0x4c33e1765c8e5cb3!2sVienna%20Airport%20Conference%20%26%20Innovation%20Center!5e0!3m2!1sen!2sbd!4v1777653279386!5m2!1sen!2sbd"
         class="absolute inset-0 w-full h-full border-0 grayscale-[50%]"
         allowfullscreen
         loading="lazy"

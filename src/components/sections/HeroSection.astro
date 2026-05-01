@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '@/i18n/utils';
-import { useTranslations, localePath } from '@/i18n/utils';
+import { localePath } from '@/i18n/utils';
 import type { SectionContent } from '@/lib/content';
 
 interface Props {
@@ -9,12 +9,11 @@ interface Props {
 }
 
 const { lang = 'de', cms } = Astro.props;
-const t = useTranslations(lang);
 
-const badge = cms?.badge ?? t.hero.badge;
-const description = cms?.description ?? t.hero.description;
-const ctaPrimary = cms?.ctaPrimary ?? t.hero.ctaPrimary;
-const ctaSecondary = cms?.ctaSecondary ?? t.hero.ctaSecondary;
+const badge = cms?.badge;
+const description = cms?.description;
+const ctaPrimary = cms?.ctaPrimary;
+const ctaSecondary = cms?.ctaSecondary;
 ---
 
 <section class="relative overflow-hidden bg-white min-h-screen flex items-center justify-center pt-20">

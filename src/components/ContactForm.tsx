@@ -3,25 +3,32 @@ import { supabase } from '@/lib/supabase'
 
 type Props = {
   lang: 'de' | 'en'
-  firstNameLabel: string
-  firstNamePlaceholder: string
-  lastNameLabel: string
-  lastNamePlaceholder: string
+  formTitle: string
+  companyLabel: string
+  companyPlaceholder: string
+  nameLabel: string
+  namePlaceholder: string
+  phoneLabel: string
+  phonePlaceholder: string
   emailLabel: string
   emailPlaceholder: string
+  interestLabel: string
+  interestPlaceholder: string
+  interestOptions: string[]
   messageLabel: string
   messagePlaceholder: string
   submitBtn: string
-  formTitle: string
 }
 
 type State = 'idle' | 'submitting' | 'success' | 'error'
 
 export function ContactForm({
   lang, formTitle,
-  firstNameLabel, firstNamePlaceholder,
-  lastNameLabel, lastNamePlaceholder,
+  companyLabel, companyPlaceholder,
+  nameLabel, namePlaceholder,
+  phoneLabel, phonePlaceholder,
   emailLabel, emailPlaceholder,
+  interestLabel, interestPlaceholder, interestOptions,
   messageLabel, messagePlaceholder,
   submitBtn,
 }: Props) {
@@ -32,17 +39,18 @@ export function ContactForm({
     setState('submitting')
     const fd = new FormData(e.currentTarget)
     const { error } = await supabase.from('contact_submissions').insert({
-      firstname: fd.get('firstname') as string,
-      lastname: fd.get('lastname') as string,
+      company: fd.get('company') as string || null,
+      name: fd.get('name') as string,
+      phone: fd.get('phone') as string || null,
       email: fd.get('email') as string,
-      message: fd.get('message') as string,
+      interest: fd.get('interest') as string || null,
+      message: fd.get('message') as string || null,
       lang,
       browser_lang: navigator.language,
       screen: `${window.screen.width}x${window.screen.height}`,
       referrer: document.referrer || null,
     })
     setState(error ? 'error' : 'success')
-    if (!error) (e.target as HTMLFormElement).reset()
   }
 
   const successMsg = lang === 'de'
@@ -51,6 +59,9 @@ export function ContactForm({
   const errorMsg = lang === 'de'
     ? 'Fehler beim Senden. Bitte versuchen Sie es erneut.'
     : 'Error sending. Please try again.'
+
+  const inputCls = 'w-full h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition'
+  const labelCls = 'block text-sm font-medium text-slate-700 mb-1.5'
 
   return (
     <div className="glass-card-light p-8 md:p-12 rounded-3xl shadow-xl shadow-slate-200">
@@ -64,34 +75,61 @@ export function ContactForm({
           <p className="text-slate-700 font-medium">{successMsg}</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{firstNameLabel}</label>
-              <input name="firstname" required placeholder={firstNamePlaceholder}
-                className="w-full h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition" />
+              <label className={labelCls}>{companyLabel}</label>
+              <input name="company" placeholder={companyPlaceholder} className={inputCls} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">{lastNameLabel}</label>
-              <input name="lastname" required placeholder={lastNamePlaceholder}
-                className="w-full h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition" />
+              <label className={labelCls}>{nameLabel} <span className="text-primary">*</span></label>
+              <input name="name" required placeholder={namePlaceholder} className={inputCls} />
+            </div>
+            <div>
+              <label className={labelCls}>{phoneLabel}</label>
+              <input name="phone" type="tel" placeholder={phonePlaceholder} className={inputCls} />
+            </div>
+            <div>
+              <label className={labelCls}>{emailLabel} <span className="text-primary">*</span></label>
+              <input name="email" type="email" required placeholder={emailPlaceholder} className={inputCls} />
             </div>
           </div>
+
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">{emailLabel}</label>
-            <input name="email" type="email" required placeholder={emailPlaceholder}
-              className="w-full h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition" />
+            <label className={labelCls}>{interestLabel}</label>
+            <div className="relative">
+              <select
+                name="interest"
+                className={`${inputCls} appearance-none cursor-pointer pr-10`}
+                style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 14px center' }}
+              >
+                <option value="">{interestPlaceholder}</option>
+                {interestOptions.map((opt) => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
+            </div>
           </div>
+
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">{messageLabel}</label>
-            <textarea name="message" rows={4} placeholder={messagePlaceholder}
-              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition resize-none" />
+            <label className={labelCls}>{messageLabel}</label>
+            <textarea
+              name="message"
+              rows={4}
+              placeholder={messagePlaceholder}
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition resize-none"
+            />
           </div>
+
           {state === 'error' && (
             <p className="text-sm text-red-500 bg-red-50 border border-red-100 rounded-xl px-4 py-3">{errorMsg}</p>
           )}
-          <button type="submit" disabled={state === 'submitting'}
-            className="rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 bg-primary text-white shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] px-8 py-4 text-base w-full disabled:opacity-60 disabled:scale-100">
+
+          <button
+            type="submit"
+            disabled={state === 'submitting'}
+            className="rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 bg-primary text-white shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] px-8 py-4 text-base w-full disabled:opacity-60 disabled:scale-100"
+          >
             {state === 'submitting'
               ? (lang === 'de' ? 'Wird gesendet…' : 'Sending…')
               : submitBtn}

@@ -1,6 +1,5 @@
 ---
 import type { Lang } from '@/i18n/utils';
-import { useTranslations } from '@/i18n/utils';
 import type { SectionContent } from '@/lib/content';
 
 interface Props {
@@ -9,16 +8,9 @@ interface Props {
 }
 
 const { lang = 'de', cms } = Astro.props;
-const t = useTranslations(lang);
 
-const label = cms?.label ?? t.trustBar.label;
-const logos = [
-  cms?.logo1 ?? 'Austrian',
-  cms?.logo2 ?? 'ÖBB',
-  cms?.logo3 ?? 'EVN',
-  cms?.logo4 ?? 'Red Bull',
-  cms?.logo5 ?? 'Voestalpine',
-];
+const label = cms?.label;
+const logos = [cms?.logo1, cms?.logo2, cms?.logo3, cms?.logo4, cms?.logo5];
 ---
 
 <section class="border-y border-border-light bg-neutral-soft py-12">

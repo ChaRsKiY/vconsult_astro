@@ -3,47 +3,45 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
-import { useTranslations, localePath } from '@/i18n/utils';
-import { fetchContent } from '@/lib/content';
-import type { SectionContent } from '@/lib/content';
+import { localePath } from '@/i18n/utils';
+import { fetchContent, type SectionContent } from '@/lib/content';
 
 const lang = 'en' as const;
-const t = useTranslations(lang);
 const cms = await fetchContent(lang);
 const c: SectionContent = cms.unternehmen ?? {};
 const footer = cms.footer ?? {};
 
-const title             = c.title             ?? t.unternehmen.title;
-const description       = c.description       ?? t.unternehmen.description;
-const breadcrumb        = c.breadcrumb        ?? t.unternehmen.breadcrumb;
-const vconsultLabel     = c.vconsultLabel     ?? t.unternehmen.vconsultLabel;
-const companyTitle      = c.companyTitle      ?? t.unternehmen.companyTitle;
-const p1                = c.p1                ?? t.unternehmen.p1;
-const p2                = c.p2                ?? t.unternehmen.p2;
-const p3                = c.p3                ?? t.unternehmen.p3;
-const p3Model           = c.p3Model           ?? t.unternehmen.p3Model;
-const p3Rest            = c.p3Rest            ?? t.unternehmen.p3Rest;
-const expertTitle       = c.expertTitle       ?? t.unternehmen.expertTitle;
-const expertDesc        = c.expertDesc        ?? t.unternehmen.expertDesc;
-const sapTeamTitle      = c.sapTeamTitle      ?? t.unternehmen.sapTeamTitle;
-const sapTeamDesc       = c.sapTeamDesc       ?? t.unternehmen.sapTeamDesc;
-const sapTeamBrand      = c.sapTeamBrand      ?? t.unternehmen.sapTeamBrand;
-const sapTeamRest       = c.sapTeamRest       ?? t.unternehmen.sapTeamRest;
-const philosophieTitle  = c.philosophieTitle  ?? t.unternehmen.philosophieTitle;
-const philosophieSub    = c.philosophieSubtitle ?? t.unternehmen.philosophieSubtitle;
-const card1Title        = c.card1Title        ?? t.unternehmen.card1Title;
-const card1Desc         = c.card1Desc         ?? t.unternehmen.card1Desc;
-const card1Feature1     = c.card1Feature1     ?? t.unternehmen.card1Feature1;
-const card1Feature2     = c.card1Feature2     ?? t.unternehmen.card1Feature2;
-const card2Title        = c.card2Title        ?? t.unternehmen.card2Title;
-const card2Desc         = c.card2Desc         ?? t.unternehmen.card2Desc;
-const card2Highlight    = c.card2Highlight    ?? t.unternehmen.card2Highlight;
-const ctaText           = c.ctaText           ?? t.unternehmen.ctaText;
-const ctaKunden         = c.ctaKunden         ?? t.unternehmen.ctaKunden;
-const ctaKontakt        = c.ctaKontakt        ?? t.unternehmen.ctaKontakt;
+const title             = c.title;
+const description       = c.description;
+const breadcrumb        = c.breadcrumb;
+const vconsultLabel     = c.vconsultLabel;
+const companyTitle      = c.companyTitle;
+const p1                = c.p1;
+const p2                = c.p2;
+const p3                = c.p3;
+const p3Model           = c.p3Model;
+const p3Rest            = c.p3Rest;
+const expertTitle       = c.expertTitle;
+const expertDesc        = c.expertDesc;
+const sapTeamTitle      = c.sapTeamTitle;
+const sapTeamDesc       = c.sapTeamDesc;
+const sapTeamBrand      = c.sapTeamBrand;
+const sapTeamRest       = c.sapTeamRest;
+const philosophieTitle  = c.philosophieTitle;
+const philosophieSub    = c.philosophieSubtitle;
+const card1Title        = c.card1Title;
+const card1Desc         = c.card1Desc;
+const card1Feature1     = c.card1Feature1;
+const card1Feature2     = c.card1Feature2;
+const card2Title        = c.card2Title;
+const card2Desc         = c.card2Desc;
+const card2Highlight    = c.card2Highlight;
+const ctaText           = c.ctaText;
+const ctaKunden         = c.ctaKunden;
+const ctaKontakt        = c.ctaKontakt;
 ---
 
-<BaseLayout title={t.meta.unternehmenTitle} description={t.meta.unternehmenDescription} lang={lang}>
+<BaseLayout title="About the Company - vconsult" description="An internationally active consulting network for your logistics." lang={lang}>
   <Navbar currentPath={Astro.url.pathname} lang={lang} />
   <main>
     <PageHeader

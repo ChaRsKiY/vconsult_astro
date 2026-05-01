@@ -16,12 +16,12 @@ const [articles, cms] = await Promise.all([
 ]);
 ---
 
-<BaseLayout title={t.meta.newsTitle} description={t.meta.newsDescription} lang={lang}>
+<BaseLayout title="News & Insights - vconsult" description="Stay informed about the latest developments in SAP logistics, S/4HANA and our projects." lang={lang}>
   <Navbar currentPath={Astro.url.pathname} lang={lang} />
   <main>
     <PageHeader
       title="News & Insights"
-      description={t.meta.newsDescription}
+      description="Stay informed about the latest developments in SAP logistics, S/4HANA and our projects."
       breadcrumbs={[{ label: "News" }]}
       lang={lang}
     />

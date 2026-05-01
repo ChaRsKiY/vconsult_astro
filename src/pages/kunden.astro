@@ -3,27 +3,25 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
-import { useTranslations } from '@/i18n/utils';
 import { fetchContent, fetchKunden } from '@/lib/content';
 import type { SectionContent } from '@/lib/content';
 
 const lang = 'de' as const;
-const t = useTranslations(lang);
 const [cms, alle] = await Promise.all([fetchContent(lang), fetchKunden()]);
 const c: SectionContent = cms.kunden ?? {};
 const footer = cms.footer ?? {};
 
-const title       = c.title       ?? t.kunden.title;
-const description = c.description ?? t.kunden.description;
-const breadcrumb  = c.breadcrumb  ?? t.kunden.breadcrumb;
-const kundenLabel   = c.kundenLabel   ?? 'Kunden';
-const partnerLabel  = c.partnerLabel  ?? 'Partner';
+const title       = c.title;
+const description = c.description;
+const breadcrumb  = c.breadcrumb;
+const kundenLabel   = c.kundenLabel;
+const partnerLabel  = c.partnerLabel;
 
 const kunden   = alle.filter(k => k.type === 'kunde');
 const partners = alle.filter(k => k.type === 'partner');
 ---
 
-<BaseLayout title={t.meta.kundenTitle} description={t.meta.kundenDescription} lang={lang}>
+<BaseLayout title="Unsere Kunden & Partner - vconsult" description="Wir bündeln spezifisches Fachwissen und stellen dies unseren Kunden weltweit zur Verfügung." lang={lang}>
   <Navbar currentPath={Astro.url.pathname} lang={lang} />
   <main>
     <PageHeader

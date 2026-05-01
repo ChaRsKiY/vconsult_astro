@@ -9,11 +9,9 @@ import ServicesSection from '@/components/sections/ServicesSection.astro';
 import CoreCompetenciesSection from '@/components/sections/CoreCompetenciesSection.astro';
 import CtaSection from '@/components/sections/CtaSection.astro';
 import BlogSection from '@/components/sections/BlogSection.astro';
-import { useTranslations } from '@/i18n/utils';
 import { fetchContent, fetchArticles } from '@/lib/content';
 
 const lang = 'de' as const;
-const t = useTranslations(lang);
 
 const [cms, articles] = await Promise.all([
   fetchContent(lang),
@@ -21,7 +19,7 @@ const [cms, articles] = await Promise.all([
 ]);
 ---
 
-<BaseLayout title={t.meta.homeTitle} description={t.meta.homeDescription} lang={lang}>
+<BaseLayout title="vconsult - Digitale Präzision für SAP-Systeme" description="Beratung in Industriequalität, SAP Excellence Partner." lang={lang}>
   <Navbar currentPath={Astro.url.pathname} lang={lang} />
   <main>
     <HeroSection lang={lang} cms={cms.hero} />

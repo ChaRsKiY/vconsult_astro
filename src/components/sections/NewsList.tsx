@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { ArrowRight, Calendar, Tag as TagIcon, LayoutGrid, List, ChevronDown, Check } from "lucide-react";
 import type { ArticleItem } from "@/lib/content";
 
@@ -26,10 +26,31 @@ export const NewsList: React.FC<Props> = ({ lang = 'de', translations: tr, artic
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+    const [urlInitialized, setUrlInitialized] = useState(false);
 
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const [isTagOpen, setIsTagOpen] = useState(false);
     const [isSortOpen, setIsSortOpen] = useState(false);
+
+    // Initialize filters from URL search params on mount
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('category');
+        const tags = params.get('tags');
+        if (cat) setSelectedCategory(cat);
+        if (tags) setSelectedTags(tags.split(',').filter(Boolean));
+        setUrlInitialized(true);
+    }, []);
+
+    // Sync filter state back to URL
+    useEffect(() => {
+        if (!urlInitialized) return;
+        const params = new URLSearchParams();
+        if (selectedCategory) params.set('category', selectedCategory);
+        if (selectedTags.length > 0) params.set('tags', selectedTags.join(','));
+        const qs = params.toString();
+        history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
+    }, [selectedCategory, selectedTags, urlInitialized]);
 
     const categories = useMemo(() => Array.from(new Set(articles.map((a) => a.category))), [articles]);
     const tags = useMemo(() => Array.from(new Set(articles.flatMap((a) => a.tags))), [articles]);

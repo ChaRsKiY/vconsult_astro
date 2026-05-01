@@ -3,33 +3,30 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
-import { useTranslations, localePath } from '@/i18n/utils';
-import { fetchContent } from '@/lib/content';
-import type { SectionContent } from '@/lib/content';
+import { fetchContent, type SectionContent } from '@/lib/content';
 
 const lang = 'de' as const;
-const t = useTranslations(lang);
 const cms = await fetchContent(lang);
 const c: SectionContent = cms.philosophiePage ?? {};
 const footer = cms.footer ?? {};
 
-const title          = c.title          ?? t.philosophiePage.title;
-const description    = c.description    ?? t.philosophiePage.description;
-const breadcrumb     = c.breadcrumb     ?? t.philosophiePage.breadcrumb;
-const p1             = c.p1             ?? t.philosophiePage.p1;
-const quoteTitle     = c.quoteTitle     ?? t.philosophiePage.quoteTitle;
-const quoteText      = c.quoteText      ?? t.philosophiePage.quoteText;
-const p2             = c.p2             ?? t.philosophiePage.p2;
-const cta            = c.cta            ?? t.philosophiePage.cta;
-const workflow1Title = c.workflow1Title ?? t.philosophiePage.workflow1Title;
-const workflow1Desc  = c.workflow1Desc  ?? t.philosophiePage.workflow1Desc;
-const workflow2Title = c.workflow2Title ?? t.philosophiePage.workflow2Title;
-const workflow2Desc  = c.workflow2Desc  ?? t.philosophiePage.workflow2Desc;
-const workflow3Title = c.workflow3Title ?? t.philosophiePage.workflow3Title;
-const workflow3Desc  = c.workflow3Desc  ?? t.philosophiePage.workflow3Desc;
+const title          = c.title;
+const description    = c.description;
+const breadcrumb     = c.breadcrumb;
+const p1             = c.p1;
+const quoteTitle     = c.quoteTitle;
+const quoteText      = c.quoteText;
+const p2             = c.p2;
+const cta            = c.cta;
+const workflow1Title = c.workflow1Title;
+const workflow1Desc  = c.workflow1Desc;
+const workflow2Title = c.workflow2Title;
+const workflow2Desc  = c.workflow2Desc;
+const workflow3Title = c.workflow3Title;
+const workflow3Desc  = c.workflow3Desc;
 ---
 
-<BaseLayout title={t.meta.philosophieTitle} description={t.meta.philosophieDescription} lang={lang}>
+<BaseLayout title="Unsere Philosophie - vconsult" description="Erzielen die intensiven IT-Investitionen den gewünschten Erfolg?" lang={lang}>
   <Navbar currentPath={Astro.url.pathname} lang={lang} />
   <main>
     <PageHeader

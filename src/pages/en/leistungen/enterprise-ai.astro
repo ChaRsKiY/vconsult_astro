@@ -1,0 +1,219 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import { localePath } from '@/i18n/utils';
+import { fetchContent } from '@/lib/content';
+import type { SectionContent } from '@/lib/content';
+
+const lang = 'en' as const;
+const cms = await fetchContent(lang);
+const c: SectionContent = cms.enterpriseai ?? {};
+const footer = cms.footer ?? {};
+
+const features = [1,2,3,4,5,6].map(n => ({ title: c[`feature${n}Title`], desc: c[`feature${n}Desc`] }));
+const icons = ['chart','cpu','shield','users','server','zap'];
+
+const useCases = [1,2,3,4,5,6].map(n => ({
+  num: `0${n}`,
+  title: c[`useCase${n}Title`],
+  desc:  c[`useCase${n}Desc`],
+  tag:   c[`useCase${n}Tag`],
+}));
+
+const steps = [1,2,3,4].map(n => ({
+  num: `0${n}`,
+  title: c[`step${n}Title`],
+  desc:  c[`step${n}Desc`],
+}));
+
+const security = [1,2,3,4].map(n => ({
+  title: c[`security${n}Title`],
+  desc:  c[`security${n}Desc`],
+}));
+---
+
+<BaseLayout
+  title="Enterprise AI with SAP Integration | vconsult"
+  description="Enterprise AI by vconsult with full SAP integration. Automate processes, analyze data in real time, empower your team."
+  lang={lang}
+>
+  <Navbar currentPath={Astro.url.pathname} lang={lang} />
+  <main>
+    <PageHeader
+      title={c.pageTitle}
+      description={c.pageDesc}
+      breadcrumbs={[{ label: 'Services', href: localePath('/leistungen', lang) }, { label: 'Enterprise AI' }]}
+      lang={lang}
+    />
+
+    <!-- Intro + Stats -->
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div data-animate>
+            <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-4">{c.introBadge}</p>
+            <h2 class="text-4xl font-normal text-slate-900 mb-6 leading-tight tracking-tight">{c.introTitle}</h2>
+            <p class="text-slate-600 leading-relaxed mb-6">{c.introP1}</p>
+            <p class="text-slate-600 leading-relaxed mb-8">{c.introP2}</p>
+            <div class="flex flex-wrap gap-4">
+              <a
+                href={localePath('/kontakt', lang)}
+                class="rounded-xl font-bold transition-all inline-flex items-center gap-2 bridge-gradient text-white shadow-primary/20 shadow-lg px-6 py-3 text-sm hover:opacity-90"
+              >
+                {c.introCtaLabel}
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <a
+                href="https://enterprisebrain.eu"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-xl font-bold transition-all inline-flex items-center gap-2 border border-border-light bg-white text-slate-900 hover:bg-neutral-soft px-6 py-3 text-sm"
+              >
+                enterprisebrain.eu
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              </a>
+            </div>
+          </div>
+          <div data-animate data-animate-delay="1" class="grid grid-cols-3 gap-6">
+            <div class="glass-card-light rounded-2xl p-6 text-center flex flex-col items-center gap-2 border border-border-light">
+              <span class="text-3xl font-normal text-primary">{c.stat1Value}</span>
+              <span class="text-xs text-slate-500 leading-snug">{c.stat1Label}</span>
+            </div>
+            <div class="glass-card-light rounded-2xl p-6 text-center flex flex-col items-center gap-2 border border-primary/20 bg-primary/5">
+              <span class="text-3xl font-normal text-primary">{c.stat2Value}</span>
+              <span class="text-xs text-slate-500 leading-snug">{c.stat2Label}</span>
+            </div>
+            <div class="glass-card-light rounded-2xl p-6 text-center flex flex-col items-center gap-2 border border-border-light">
+              <span class="text-3xl font-normal text-primary">{c.stat3Value}</span>
+              <span class="text-xs text-slate-500 leading-snug">{c.stat3Label}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-24 bg-neutral-soft border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-xl mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-3">{c.featuresBadge}</p>
+          <h2 class="text-3xl font-normal text-slate-900 tracking-tight">{c.featuresTitle}</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((f, i) => (
+            <div data-animate data-animate-delay={String(i % 3)} class="glass-card-light rounded-2xl p-7 border border-border-light flex flex-col gap-4">
+              <div class="w-10 h-10 rounded-xl bg-primary/8 flex items-center justify-center text-primary">
+                {icons[i] === 'chart' && <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>}
+                {icons[i] === 'cpu' && <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg>}
+                {icons[i] === 'shield' && <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
+                {icons[i] === 'users' && <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>}
+                {icons[i] === 'server' && <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>}
+                {icons[i] === 'zap' && <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>}
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-slate-900 mb-1.5">{f.title}</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">{f.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Use Cases -->
+    <section class="py-24 bg-white border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-xl mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-3">{c.useCasesBadge}</p>
+          <h2 class="text-3xl font-normal text-slate-900 tracking-tight">{c.useCasesTitle}</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {useCases.map((uc, i) => (
+            <div data-animate data-animate-delay={String(i % 3)} class="rounded-2xl border border-border-light bg-neutral-soft p-7 flex flex-col gap-4">
+              <div class="flex items-center justify-between">
+                <span class="text-3xl font-normal text-slate-200">{uc.num}</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest bg-primary/10 text-primary px-2.5 py-1 rounded-full">{uc.tag}</span>
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-slate-900 mb-2">{uc.title}</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">{uc.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="py-24 bg-neutral-soft border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-xl mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-3">{c.stepsBadge}</p>
+          <h2 class="text-3xl font-normal text-slate-900 tracking-tight">{c.stepsTitle}</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((s, i) => (
+            <div data-animate data-animate-delay={String(i)} class="flex flex-col gap-4">
+              <div class="w-12 h-12 rounded-2xl bridge-gradient flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-primary/20">
+                {s.num}
+              </div>
+              <h3 class="text-base font-semibold text-slate-900">{s.title}</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section class="py-20 bg-white border-t border-border-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-xl mb-12">
+          <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-3">{c.securityBadge}</p>
+          <h2 class="text-3xl font-normal text-slate-900 tracking-tight">{c.securityTitle}</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {security.map((item, i) => (
+            <div data-animate data-animate-delay={String(i)} class="rounded-2xl border border-border-light bg-neutral-soft p-6 flex flex-col gap-3">
+              <div class="w-8 h-8 rounded-lg bg-primary/8 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+              </div>
+              <h3 class="text-sm font-semibold text-slate-900">{item.title}</h3>
+              <p class="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 bg-neutral-soft border-t border-border-light">
+      <div data-animate class="max-w-3xl mx-auto px-6 text-center">
+        <div class="inline-block w-10 h-0.5 bg-primary mb-8"></div>
+        <h2 class="text-3xl font-normal text-slate-900 mb-4 tracking-tight">{c.ctaTitle}</h2>
+        <p class="text-slate-600 mb-10">{c.ctaDesc}</p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href={localePath('/kontakt', lang)}
+            class="rounded-xl font-bold transition-all inline-flex items-center gap-2 bridge-gradient text-white shadow-primary/20 shadow-lg px-8 py-4 text-sm hover:opacity-90"
+          >
+            {c.ctaPrimaryLabel}
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a
+            href="https://enterprisebrain.eu"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-xl font-bold transition-all inline-flex items-center gap-2 border border-border-light bg-white text-slate-900 hover:bg-neutral-soft px-8 py-4 text-sm"
+          >
+            {c.ctaSecondaryLabel}
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} cms={footer} />
+</BaseLayout>
