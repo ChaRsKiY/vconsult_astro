@@ -1,27 +1,71 @@
 ---
-import type { Lang } from '@/i18n/utils';
-import type { SectionContent } from '@/lib/content';
+import type { SectionContent, KundeItem } from '@/lib/content';
 
 interface Props {
-  lang?: Lang;
   cms?: SectionContent;
+  items?: KundeItem[];
 }
 
-const { lang = 'de', cms } = Astro.props;
-
+const { cms, items = [] } = Astro.props;
 const label = cms?.label;
-const logos = [cms?.logo1, cms?.logo2, cms?.logo3, cms?.logo4, cms?.logo5];
+
+// Repeat enough times so the track is always wider than the viewport (prevents right-side gap on load)
+const minInstances = 20;
+const repeats = items.length > 0 ? Math.max(2, Math.ceil(minInstances / items.length)) : 0;
+const track = items.length > 0 ? Array.from({ length: repeats }, () => items).flat() : [];
 ---
 
-<section class="border-y border-border-light bg-neutral-soft py-12">
-  <div class="mx-auto max-w-7xl px-6">
-    <p class="text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-8">
+<section class="border-y border-border-light bg-neutral-soft py-12 overflow-hidden">
+  {label && (
+    <p class="text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-8 px-6">
       {label}
     </p>
-    <div class="flex flex-wrap items-center justify-around gap-12 opacity-50 grayscale transition-all hover:opacity-100">
-      {logos.map((logo) => (
-        <div class="text-xl font-bold text-slate-400">{logo}</div>
-      ))}
+  )}
+  {items.length > 0 && (
+    <div class="trustbar-wrapper relative overflow-hidden">
+      <div class="trustbar-track flex items-center gap-12 w-max">
+        {track.map((item) => (
+          item.website_url ? (
+            <a
+              href={item.website_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="trustbar-item flex-shrink-0 flex items-center justify-center h-14 px-6 group"
+            >
+              <span class="text-sm font-extrabold uppercase tracking-widest text-slate-400 whitespace-nowrap group-hover:text-slate-700 transition-colors duration-300">{item.name}</span>
+            </a>
+          ) : (
+            <div class="trustbar-item flex-shrink-0 flex items-center justify-center h-14 px-6">
+              <span class="text-sm font-extrabold uppercase tracking-widest text-slate-400 whitespace-nowrap">{item.name}</span>
+            </div>
+          )
+        ))}
+      </div>
     </div>
-  </div>
+  )}
 </section>
+
+<style>
+  .trustbar-track {
+    animation: trustbar-scroll 20s linear infinite;
+  }
+
+  .trustbar-wrapper:hover .trustbar-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes trustbar-scroll {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>('.trustbar-track');
+  if (track) {
+    // Normalize to ~120px/s regardless of how many items are in the track
+    const halfWidth = track.scrollWidth / 2;
+    const duration = halfWidth / 120;
+    track.style.animationDuration = `${duration}s`;
+  }
+</script>

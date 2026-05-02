@@ -86,6 +86,16 @@ export async function fetchKunden(): Promise<KundeItem[]> {
   return (data ?? []) as KundeItem[]
 }
 
+export async function fetchTrustbarKunden(): Promise<KundeItem[]> {
+  const { data } = await supabase
+    .from('kunden')
+    .select('id,name,logo_url,website_url,display_order')
+    .eq('active', true)
+    .eq('show_in_trustbar', true)
+    .order('display_order')
+  return (data ?? []) as KundeItem[]
+}
+
 export async function fetchArticleBySlug(slug: string): Promise<ArticleItem | null> {
   const { data } = await supabase
     .from('articles')

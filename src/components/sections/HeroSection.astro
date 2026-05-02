@@ -11,6 +11,10 @@ interface Props {
 const { lang = 'de', cms } = Astro.props;
 
 const badge = cms?.badge;
+const titlePart1 = cms?.titlePart1;
+const titlePart2 = cms?.titlePart2;
+const titlePart3 = cms?.titlePart3;
+const titlePart4 = cms?.titlePart4;
 const description = cms?.description;
 const ctaPrimary = cms?.ctaPrimary;
 const ctaSecondary = cms?.ctaSecondary;
@@ -36,9 +40,9 @@ const ctaSecondary = cms?.ctaSecondary;
         data-animate-delay="1"
         class="text-[clamp(2.4rem,6vw,4.5rem)] font-normal text-slate-900 mb-7"
       >
-        Merging <span class="text-transparent bg-clip-text bridge-gradient">Business</span>
+        {titlePart1}<span class="text-transparent bg-clip-text bridge-gradient">{titlePart2}</span>
         <br class="hidden sm:block" />
-        &amp; <span class="text-transparent bg-clip-text bridge-gradient">IT</span>
+        {titlePart3}<span class="text-transparent bg-clip-text bridge-gradient">{titlePart4}</span>
       </h1>
       <p
         data-animate

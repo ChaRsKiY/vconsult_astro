@@ -9,13 +9,14 @@ import ServicesSection from '@/components/sections/ServicesSection.astro';
 import CoreCompetenciesSection from '@/components/sections/CoreCompetenciesSection.astro';
 import CtaSection from '@/components/sections/CtaSection.astro';
 import BlogSection from '@/components/sections/BlogSection.astro';
-import { fetchContent, fetchArticles } from '@/lib/content';
+import { fetchContent, fetchArticles, fetchTrustbarKunden } from '@/lib/content';
 
 const lang = 'en' as const;
 
-const [cms, articles] = await Promise.all([
+const [cms, articles, trustbarItems] = await Promise.all([
   fetchContent(lang),
   fetchArticles(),
+  fetchTrustbarKunden(),
 ]);
 ---
 
@@ -23,7 +24,7 @@ const [cms, articles] = await Promise.all([
   <Navbar currentPath={Astro.url.pathname} lang={lang} />
   <main>
     <HeroSection lang={lang} cms={cms.hero} />
-    <TrustBar lang={lang} cms={cms.trustBar} />
+    <TrustBar cms={cms.trustBar} items={trustbarItems} />
     <ServicesSection lang={lang} cms={cms.services} />
     <BlogSection lang={lang} cms={cms.blog} articles={articles} />
     <CoreCompetenciesSection lang={lang} cms={cms.coreCompetencies} />
